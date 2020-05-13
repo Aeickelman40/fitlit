@@ -27,8 +27,31 @@ describe('User', function() {
     let user = new User(userData);
     expect(user).to.be.an.instanceof(User);
   });
-  
-  
+
+  it('should not require an argument to create a new User', () => {
+    expect(() => { new User() }).to.not.throw(Error);
+  });
+
+  it('should not require a property to create a new User', function () {
+  let userData =   {
+    "id": 1,
+
+    "address": "15195 Nakia Tunnel, Erdmanport VA 19901-1697",
+    "email": "Diana.Hayes1@hotmail.com",
+    "strideLength": 4.3,
+    
+    "friends": [
+      16,
+      4,
+      8
+    ]
+  }
+
+  let user = new User(userData);
+  assert.equal(user.name, undefined)
+  assert.equal(user.dailyStepGoal, undefined)
+ });
+   
   it('should know the user Id', function() {
     let userData =   {
       "id": 1,
@@ -168,4 +191,49 @@ describe('User', function() {
     expect(user).to.be.an.instanceof(User);
     expect(user.returnFirstName()).to.equal('Luisa')
   });
+
+  it('should be able to return the first name even if there is an apostrophe ', function() {
+    let userData =  {
+      "id": 45,
+      "name": "Jennie O'Hara",
+      "address": "492 Stracke Mews, East Jazlyn OH 58002-5475",
+      "email": "Elenor.Block12@yahoo.com",
+      "strideLength": 4.4,
+      "dailyStepGoal": 7000,
+      "friends": [
+        35,
+        39,
+        31,
+        25,
+        33
+      ]
+    }
+
+    let user = new User(userData);
+    expect(user).to.be.an.instanceof(User);
+    expect(user.returnFirstName()).to.equal('Jennie')
+  });
+
+  it('should be able to return the first name, even if there is a middle name listed', function() {
+    let userData =  {
+      "id": 45,
+      "name": "William John Wilke",
+      "address": "492 Stracke Mews, East Jazlyn OH 58002-5475",
+      "email": "Elenor.Block12@yahoo.com",
+      "strideLength": 4.4,
+      "dailyStepGoal": 7000,
+      "friends": [
+        35,
+        39,
+        31,
+        25,
+        33
+      ]
+    }
+
+    let user = new User(userData);
+    expect(user).to.be.an.instanceof(User);
+    expect(user.returnFirstName()).to.equal('William')
+  });
+  
 });
