@@ -45,8 +45,24 @@ body {
 .app-name {
     text-align: center;
     margin: 0px;
-    margin-bottom: 70px;
+    margin-bottom: 0px;
     margin-top: 50px;
     width: 100%;
     font-size: 60px;
+}
+
+.compare-steps {
+    margin: 10px;
+    margin-left: 20px;
+    width: 80%;
+    height: 15%;
+    background-color: white;
+}
+
+.friends {
+    margin: 10px;
+    margin-left: 20px;
+    width: 80%;
+    height: 25%;
+    background-color: white;
 }
