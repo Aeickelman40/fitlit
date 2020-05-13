@@ -106,5 +106,5 @@ const testData = [
 ]
 
 if (typeof module !== 'undefined') {
-    module.exports = testData;
-  }
+  module.exports = testData;
+}
