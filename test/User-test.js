@@ -29,28 +29,29 @@ describe('User', function() {
   });
 
   it('should not require an argument to create a new User', () => {
-    expect(() => { new User() }).to.not.throw(Error);
+    expect(() => {
+      new User() 
+    }).to.not.throw(Error);
   });
 
   it('should not require a property to create a new User', function () {
-  let userData =   {
-    "id": 1,
+    let userData =   {
+      "id": 1,
 
-    "address": "15195 Nakia Tunnel, Erdmanport VA 19901-1697",
-    "email": "Diana.Hayes1@hotmail.com",
-    "strideLength": 4.3,
+      "address": "15195 Nakia Tunnel, Erdmanport VA 19901-1697",
+      "email": "Diana.Hayes1@hotmail.com",
+      "strideLength": 4.3,
     
-    "friends": [
-      16,
-      4,
-      8
-    ]
-  }
-
-  let user = new User(userData);
-  assert.equal(user.name, undefined)
-  assert.equal(user.dailyStepGoal, undefined)
- });
+      "friends": [
+        16,
+        4,
+        8
+      ]
+    }
+    let user = new User(userData);
+    assert.equal(user.name, undefined)
+    assert.equal(user.dailyStepGoal, undefined)
+  });
    
   it('should know the user Id', function() {
     let userData =   {

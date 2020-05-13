@@ -1,5 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
+const assert = require('chai').assert;
 
 const UserRepository = require('../src/UserRepository');
 // const userData = require('../data/users.js');
@@ -59,6 +60,12 @@ describe('User Repository', function() {
 
   it('should have a parameter of user data', function() {
     expect(userRepository.data).to.equal(testData);
+  })
+
+  it('should not require a property to create a new User Repository', function () {
+
+    let userRepository = new UserRepository();
+    assert.equal(userRepository.data, undefined);
   })
 
   it('should log an error if no user data is passed in', function() {
