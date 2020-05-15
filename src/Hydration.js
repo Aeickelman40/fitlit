@@ -19,9 +19,9 @@ class Hydration {
   }
 
   fluidConsumedForDay(date, userId) {
-    let userHydrationData = this.getHydrationDataById(userId);
     if(date) {
-      let dayHydration = userHydrationData.find(element => element.date === date)
+      let userHydrationData = this.getHydrationDataById(userId);
+      let dayHydration = userHydrationData.find(element => element.date === date);
       return dayHydration.numOunces
     } 
   } 

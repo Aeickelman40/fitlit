@@ -1,10 +1,15 @@
 var infoCard = document.querySelector('.info-card');
 var welcomeMessage = document.querySelector('.welcome-message');
-var compareStepDisplay = document.querySelector('.compare-steps')
-var friendsDisplay = document.querySelector('.friends')
+var compareStepDisplay = document.querySelector('.compare-steps');
+var friendsDisplay = document.querySelector('.friends');
+var hydrationAverageDisplay = document.querySelector('.hydration-average');
+var hydrationDailyDisplay = document.querySelector('.hydration-daily');
+var hydrationWeeklyDisplay = document.querySelector('.hydration-weekly');
 
 let user = new User()
 let userRepo = new UserRepository(userData);
+let hydration = new Hydration(hydrationData);
+const date = "2019/09/22";
 
 window.onload = displayData()
 
@@ -14,6 +19,9 @@ function displayData() {
   welcomeMessageOnLoad();
   populateFriends();
   compareStepGoals();
+  displayAverageHydation();
+  displayDailyHydration();
+  displayWeeklyHydration();
 }
 
 function makeUser() {
@@ -55,4 +63,28 @@ function compareStepGoals() {
   } else {
     compareStepDisplay.innerHTML = `<p>Nice work, you are ${positiveDifference} steps ahead of the game!</p>`
   }
+}
+
+function displayAverageHydation() {
+  let userHydration = hydration.getHydrationDataById(user.id)
+  let averageHydration = hydration.allTimeHydration(user.id) / userHydration.length
+  hydrationAverageDisplay.insertAdjacentHTML('beforeend', 
+  `<p>You typically drink ${averageHydration} ounces of water per day.</p>`)
+}
+
+function displayDailyHydration() {
+  let dailyHydration = hydration.fluidConsumedForDay(date, user.id);
+  hydrationDailyDisplay.insertAdjacentHTML('beforeend', 
+  `<p>Today you have had ${dailyHydration} ounces of water!</p>`);
+}
+
+function displayWeeklyHydration() {
+  let weeklyHydration = hydration.fluidConsumedForAWeek(date, user.id) 
+  hydrationWeeklyDisplay.insertAdjacentHTML('beforeend', 
+    `<p>Yesterday you had ${weeklyHydration[5]} ounces of water,</p>
+    <p>2 days ago you had ${weeklyHydration[4]} ounces of water,</p>
+    <p>3 days ago you had ${weeklyHydration[3]} ounces of water,</p>
+    <p>4 days ago you had ${weeklyHydration[2]} ounces of water,</p>
+    <p>5 days ago you had ${weeklyHydration[1]} ounces of water,</p>
+    <p>6 days ago you had ${weeklyHydration[0]} ounces of water</p>`) 
 }
