@@ -27,30 +27,16 @@ class Hydration {
 
   fluidConsumedForAWeek(date, userId) {
     let userHydrationData = this.getHydrationDataById(userId);
-    let hydrationIndex = userHydrationData.map(element => {
-      return element.date
-    }).indexOf(date)
-    console.log(hydrationIndex)
-    let weeksDailyOunces = [];
-    for (var i = hydrationIndex; i < (hydrationIndex - 6); i--) {
-      // console.log(weeksDailyOunces)
-      console.log(userHydrationData[i].numOunces)
-      weeksDailyOunces.push(userHydrationData[i].numOunces)
-      // console.log(userHydrationData[i].numOunces)
+    let hydrationIndex;
+    userHydrationData.forEach((element, i) => {
+      if(element.date === date) {
+        hydrationIndex = i;
+      }
+    })
+    let weekData = userHydrationData.splice((hydrationIndex - 6), hydrationIndex)
+    return weekData.map(element => element.numOunces)
     }
-    return weeksDailyOunces
-    // console.log(weeksDailyOunces)
-      // return weeksDailyOunces
-  //  let weekHydration = userHydrationData.reduce((acc, element, i, arr) => {
-  //    if(i === 6) arr.splice(0)
-  //     acc.unshift(element.numOunces)
-  //     console.log(acc)
-  //     return acc
-  //   }, [])
-  //   return weekHydration
   }
-    
-}
 
 if (typeof module !== 'undefined') {
   module.exports = Hydration;
