@@ -89,6 +89,10 @@ class Sleep {
     console.log(topSleepers)
     return topSleepers
   }
+
+  findUsersOnABender() {
+    
+  }
 }
 
 if (typeof module !== 'undefined') {
