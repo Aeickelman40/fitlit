@@ -44,7 +44,7 @@ class Sleep {
   }
 
   hoursSleptEachDayInAWeek(date, userId) {
-    let sleepInfo= this.getSleepDataById(userId);
+    let sleepInfo = this.getSleepDataById(userId);
     let sleepIndex;
     sleepInfo.forEach((element, i) => {
       if(element.date === date) {
@@ -56,12 +56,24 @@ class Sleep {
     }
   
 
-  sleepQualityEachDayForWeek() {
-
+  sleepQualityEachDayForWeek(date, userId) {
+    let userSleepInfo = this.getSleepDataById(userId);
+    let sleepIndex;
+    userSleepInfo.forEach((element, i) => {
+      if(element.date === date) {
+        sleepIndex = i;
+      }
+    })
+    let weekData = userSleepInfo.splice((sleepIndex - 6), sleepIndex)
+    return weekData.map(element => element.sleepQuality)
   }
 
   avgSleepQualityForAllUsers() {
-
+    let allTimeSleepQuality = this.sleepData.reduce((acc, sleepData) => {
+      acc += sleepData.sleepQuality
+      return acc
+    }, 0);
+   return Math.round((allTimeSleepQuality / this.sleepData.length) * 10) / 10
   }
 
   sleepQualityForUsersAbove3() {
