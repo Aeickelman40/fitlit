@@ -76,12 +76,18 @@ class Sleep {
    return Math.round((allTimeSleepQuality / this.sleepData.length) * 10) / 10
   }
 
-  sleepQualityForUsersAbove3() {
-
+  sleepQualityForUsersAbove3(date) {
+    let arr = []
+    // this.sleepData.filter(element => )
   }
 
-  usersWhoSleptMostOnGivenDay() {
-
+  usersWhoSleptMostOnGivenDay(date) {
+    let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
+    let sortedSleepers = daysSleep.sort((a, b) => b.hoursSlept - a.hoursSlept)
+    let bestSleeper = sortedSleepers[0]
+    let topSleepers = sortedSleepers.filter(element => element.hoursSlept === bestSleeper.hoursSlept)
+    console.log(topSleepers)
+    return topSleepers
   }
 }
 
