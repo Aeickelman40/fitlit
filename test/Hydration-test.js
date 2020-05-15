@@ -111,7 +111,7 @@ describe('Hydration', function() {
       "numOunces": 96
     },
     {
-      "userID": 44,
+      "userID": 3,
       "date": "2019/06/18",
       "numOunces": 30
     }];
@@ -119,7 +119,7 @@ describe('Hydration', function() {
 
     let hydration = new Hydration(hydrationData)
     expect(hydration).to.be.an.instanceof(Hydration);
-    expect(hydration.fluidConsumedForDay("2019/06/18")).to.equal(30)
+    expect(hydration.fluidConsumedForDay("2019/06/18", 3)).to.equal(30)
   })
 
   // it('should be able to return undefined if the date doesn\'t exist', function() {
