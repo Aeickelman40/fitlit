@@ -19,6 +19,7 @@ function displayData() {
   welcomeMessageOnLoad();
   populateFriends();
   compareStepGoals();
+  displayAverageHydation();
   displayDailyHydration();
   displayWeeklyHydration();
 }
@@ -65,22 +66,25 @@ function compareStepGoals() {
 }
 
 function displayAverageHydation() {
-
+  let userHydration = hydration.getHydrationDataById(user.id)
+  let averageHydration = hydration.allTimeHydration(user.id) / userHydration.length
+  hydrationAverageDisplay.insertAdjacentHTML('beforeend', 
+  `<p>You typically drink ${averageHydration} ounces of water per day.</p>`)
 }
 
 function displayDailyHydration() {
   let dailyHydration = hydration.fluidConsumedForDay(date, user.id);
   hydrationDailyDisplay.insertAdjacentHTML('beforeend', 
-  `Today you have had ${dailyHydration} ounces of water!`);
+  `<p>Today you have had ${dailyHydration} ounces of water!</p>`);
 }
 
 function displayWeeklyHydration() {
   let weeklyHydration = hydration.fluidConsumedForAWeek(date, user.id) 
   hydrationWeeklyDisplay.insertAdjacentHTML('beforeend', 
-    `Yesterday you had ${weeklyHydration[5]} ounces of water,
-    2 days ago you had ${weeklyHydration[4]} ounces of water,
-    3 days ago you had ${weeklyHydration[3]} ounces of water,
-    4 days ago you had ${weeklyHydration[2]} ounces of water,
-    5 days ago you had ${weeklyHydration[1]} ounces of water,
-    6 days ago you had ${weeklyHydration[0]} ounces of water`) 
+    `<p>Yesterday you had ${weeklyHydration[5]} ounces of water,</p>
+    <p>2 days ago you had ${weeklyHydration[4]} ounces of water,</p>
+    <p>3 days ago you had ${weeklyHydration[3]} ounces of water,</p>
+    <p>4 days ago you had ${weeklyHydration[2]} ounces of water,</p>
+    <p>5 days ago you had ${weeklyHydration[1]} ounces of water,</p>
+    <p>6 days ago you had ${weeklyHydration[0]} ounces of water</p>`) 
 }
