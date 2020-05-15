@@ -43,9 +43,18 @@ class Sleep {
     } 
   }
 
-  hoursSleptEachDayInAWeek() {
-
-  }
+  hoursSleptEachDayInAWeek(date, userId) {
+    let sleepInfo= this.getSleepDataById(userId);
+    let sleepIndex;
+    sleepInfo.forEach((element, i) => {
+      if(element.date === date) {
+        sleepIndex = i;
+      }
+    })
+    let weekData = sleepInfo.splice((sleepIndex - 6), sleepIndex)
+    return weekData.map(element => element.hoursSlept)
+    }
+  
 
   sleepQualityEachDayForWeek() {
 
