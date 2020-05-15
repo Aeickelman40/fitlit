@@ -1,6 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 
+const testSleepData = require('../data/test-data.js')
 const Sleep = require('../src/Sleep');
 
 describe('Sleep', function() {
@@ -381,7 +382,7 @@ describe('Sleep', function() {
     expect(sleep.sleepQualityEachDayForWeek("2019/06/22", 1)).to.deep.equal([ 4.4, 1.4, 2.8, 3.2, 4.3, 2.2, 4.7])
   }); 
 
-  it('should be able to return sleep data via the users ID', function() {
+  it('should be able to return average sleep quality for all users', function() {
     let sleepData = [
       {
         "userID": 1,
@@ -472,10 +473,43 @@ describe('Sleep', function() {
         "date": "2019/06/15",
         "hoursSlept": 4.6,
         "sleepQuality": 2.9
-      }]
+      }];
 
     let sleep = new Sleep(sleepData)
     expect(sleep).to.be.an.instanceof(Sleep);
     expect(sleep.avgSleepQualityForAllUsers()).to.deep.equal(2.9)
   }); 
+
+it('should do return the top sleepers', function() {
+  let sleep = new Sleep(testSleepData)
+    expect(sleep).to.be.an.instanceof(Sleep);
+    expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/27")).to.deep.equal([
+      {
+        userID: 11,
+        date: '2019/06/27',
+        hoursSlept: 10.7,
+        sleepQuality: 2.2
+      }
+    ])
+})
+
+it('should return the top sleepers, one or more', function() {
+    let sleep = new Sleep(testSleepData)
+    expect(sleep).to.be.an.instanceof(Sleep);
+    expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/28")).to.deep.equal([
+      {
+        userID: 38,
+        date: '2019/06/28',
+        hoursSlept: 10.5,
+        sleepQuality: 1.6
+      },
+      {
+        userID: 39,
+        date: '2019/06/28',
+        hoursSlept: 10.5,
+        sleepQuality: 3.2
+      }
+    ])
+})
+
 });
