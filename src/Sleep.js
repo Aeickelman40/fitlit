@@ -1,7 +1,7 @@
 class Sleep {
   constructor(sleepData) {
     if (sleepData) {
-    this.sleepData = sleepData;
+      this.sleepData = sleepData;
     }      
   }
 
@@ -29,7 +29,7 @@ class Sleep {
 
   hoursSleptOnDay(date, userId) {
     let sleepInfo = this.getSleepDataById(userId);
-    if(date) {
+    if (date) {
       let daysSleep = sleepInfo.find(element => element.date === date);
       return daysSleep.hoursSlept
     } 
@@ -37,7 +37,7 @@ class Sleep {
 
   sleepQualityOnDay(date, userId) {
     let sleepInfo = this.getSleepDataById(userId);
-    if(date) {
+    if (date) {
       let daysSleep = sleepInfo.find(element => element.date === date);
       return daysSleep.sleepQuality
     } 
@@ -47,20 +47,20 @@ class Sleep {
     let sleepInfo = this.getSleepDataById(userId);
     let sleepIndex;
     sleepInfo.forEach((element, i) => {
-      if(element.date === date) {
+      if (element.date === date) {
         sleepIndex = i;
       }
     })
     let weekData = sleepInfo.splice((sleepIndex - 6), sleepIndex)
     return weekData.map(element => element.hoursSlept)
-    }
+  }
   
 
   sleepQualityEachDayForWeek(date, userId) {
     let userSleepInfo = this.getSleepDataById(userId);
     let sleepIndex;
     userSleepInfo.forEach((element, i) => {
-      if(element.date === date) {
+      if (element.date === date) {
         sleepIndex = i;
       }
     })
@@ -73,12 +73,21 @@ class Sleep {
       acc += sleepData.sleepQuality
       return acc
     }, 0);
-   return Math.round((allTimeSleepQuality / this.sleepData.length) * 10) / 10
+    return Math.round((allTimeSleepQuality / this.sleepData.length) * 10) / 10
   }
 
   sleepQualityForUsersAbove3(date) {
-    let arr = []
-    // this.sleepData.filter(element => )
+    let sleepIndex;
+    this.sleepData.forEach((sleepInfo, i) => {
+      if (sleepInfo.date === date) {
+        sleepIndex = i
+      }
+    })
+    let weekData = this.sleepData.splice((sleepIndex - 6), sleepIndex)
+    let goodSleepers = weekData.filter(sleepInfo => sleepInfo.sleepQuality >= 3)
+    let duplicateIDs = goodSleepers.map(sleepInfo => sleepInfo.userID)
+    let bestSleepersIDs = duplicateIDs.filter((ids, i) => duplicateIDs.indexOf(ids) === i)
+    return bestSleepersIDs
   }
 
   usersWhoSleptMostOnGivenDay(date) {
@@ -93,7 +102,7 @@ class Sleep {
     let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
     let sortedSleepers = daysSleep.sort((a, b) => a.hoursSlept - b.hoursSlept)
     let worstSleeper = sortedSleepers[0]
-   return worstSleeper;
+    return worstSleeper;
   }
 }
 

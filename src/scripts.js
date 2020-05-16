@@ -79,13 +79,13 @@ function displayAverageHydation() {
   let userHydration = hydration.getHydrationDataById(user.id)
   let averageHydration = hydration.allTimeHydration(user.id) / userHydration.length
   hydrationAverageDisplay.insertAdjacentHTML('beforeend', 
-  `<p>You typically drink ${averageHydration} ounces of water per day.</p>`)
+    `<p>You typically drink ${averageHydration} ounces of water per day.</p>`)
 }
 
 function displayDailyHydration() {
   let dailyHydration = hydration.fluidConsumedForDay(date, user.id);
   hydrationDailyDisplay.insertAdjacentHTML('beforeend', 
-  `<p>Today you have had ${dailyHydration} ounces of water!</p>`);
+    `<p>Today you have had ${dailyHydration} ounces of water!</p>`);
 }
 
 function displayWeeklyHydration() {
@@ -103,14 +103,14 @@ function displayDailySleep() {
   let dailyHoursSlept = sleep.hoursSleptOnDay(date, user.id);
   let dailySleepQuality = sleep.sleepQualityOnDay(date, user.id);
   sleepDailyDisplay.insertAdjacentHTML('beforeend', 
-  `<p>Wake up! You have slept ${dailyHoursSlept} hours today, your quality was a ${dailySleepQuality} out of 5</p>`)
+    `<p>Wake up! You have slept ${dailyHoursSlept} hours today, your quality was a ${dailySleepQuality} out of 5</p>`)
 }
 
 function displayWeeklySleep() {
   let weeklySleepHours = sleep.hoursSleptEachDayInAWeek(date, user.id)
   console.log(weeklySleepHours)
   sleepWeeklyDisplay.insertAdjacentHTML('beforeend', 
-  `<p>Yesterday you slept ${weeklySleepHours[5]} hours,</p>
+    `<p>Yesterday you slept ${weeklySleepHours[5]} hours,</p>
   <p>2 days ago you slept ${weeklySleepHours[4]} hours,</p>
   <p>3 days ago you slept ${weeklySleepHours[3]} hours,</p>
   <p>4 days ago you slept ${weeklySleepHours[2]} hours,</p>
@@ -122,12 +122,12 @@ function displayAverageSleep() {
   let averageSleepQuality = sleep.avgSleepQualityAllTime(user.id);
   let averageHoursSlept = sleep.avgSleptPerDay(user.id);
   sleepAverageDisplay.insertAdjacentHTML('beforeend', 
-  `<p>You normal sleep average is ${averageSleepQuality} out of 5, you typically sleep for ${averageHoursSlept} hours.</p>`)
+    `<p>You normal sleep average is ${averageSleepQuality} out of 5, you typically sleep for ${averageHoursSlept} hours.</p>`)
 }
 
 function displayBadSleeper() {
   let worstSleeper = sleep.findUsersWhoNeedNap(date);
   let worstSleeperName = userRepo.getDataById(worstSleeper.userID)
   sleepWorstDisplay.insertAdjacentHTML('beforeend', 
-`<p> Tell ${worstSleeperName.name} to take a nap! They only slept ${worstSleeper.hoursSlept} hours last night!`)
+    `<p> Tell ${worstSleeperName.name} to take a nap! They only slept ${worstSleeper.hoursSlept} hours last night!`)
 }

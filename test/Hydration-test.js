@@ -183,59 +183,59 @@ describe('Hydration', function() {
         "numOunces": 61
       }];
 
-      let hydration = new Hydration(hydrationData)
-      expect(hydration.allTimeHydration(1)).to.equal(194)
+    let hydration = new Hydration(hydrationData)
+    expect(hydration.allTimeHydration(1)).to.equal(194)
   })
 
   it('should return the previous 7 days of num ounces drank', function() {
    
-   let hydrationData = [
-    {
-      "userID": 1,
-      "date": "2019/06/14",
-      "numOunces": 82
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/15",
-      "numOunces": 37
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/17",
-      "numOunces": 96
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/18",
-      "numOunces": 61
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/19",
-      "numOunces": 91
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/20",
-      "numOunces": 50
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/21",
-      "numOunces": 50
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/22",
-      "numOunces": 43
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/23",
-      "numOunces": 39
-    },
-  ];
+    let hydrationData = [
+      {
+        "userID": 1,
+        "date": "2019/06/14",
+        "numOunces": 82
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/15",
+        "numOunces": 37
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/17",
+        "numOunces": 96
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/18",
+        "numOunces": 61
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/19",
+        "numOunces": 91
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/20",
+        "numOunces": 50
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/21",
+        "numOunces": 50
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/22",
+        "numOunces": 43
+      },
+      {
+        "userID": 1,
+        "date": "2019/06/23",
+        "numOunces": 39
+      },
+    ];
 
     let hydration = new Hydration(hydrationData)
     expect(hydration.fluidConsumedForAWeek("2019/06/23", 1)).to.deep.equal([96, 61, 91, 50, 50, 43, 39 ])
