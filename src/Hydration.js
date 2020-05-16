@@ -1,7 +1,7 @@
 class Hydration {
   constructor(data) {
     if (data) {
-    this.hydrationData = data
+      this.hydrationData = data
     }
   }
 
@@ -15,11 +15,11 @@ class Hydration {
       acc += hydrationInfo.numOunces
       return acc
     }, 0);
-   return allTimeHydration
+    return allTimeHydration
   }
 
   fluidConsumedForDay(date, userId) {
-    if(date) {
+    if (date) {
       let userHydrationData = this.getHydrationDataById(userId);
       let dayHydration = userHydrationData.find(element => element.date === date);
       return dayHydration.numOunces
@@ -30,14 +30,14 @@ class Hydration {
     let userHydrationData = this.getHydrationDataById(userId);
     let hydrationIndex;
     userHydrationData.forEach((element, i) => {
-      if(element.date === date) {
+      if (element.date === date) {
         hydrationIndex = i;
       }
     })
     let weekData = userHydrationData.splice((hydrationIndex - 6), hydrationIndex)
     return weekData.map(element => element.numOunces)
-    }
   }
+}
 
 if (typeof module !== 'undefined') {
   module.exports = Hydration;
