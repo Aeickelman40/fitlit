@@ -19,7 +19,7 @@ body {
     width: 100%;
 }
 
-.stepcounterbox {
+.counterbox {
     margin: 20px;
     width: 20%;
     height: 70%;
@@ -29,7 +29,11 @@ body {
 
 .hydration-average,
 .hydration-daily,
-.hydration-weekly {
+.hydration-weekly,
+.today-sleep-data,
+.sleep-weekly,
+.sleep-average,
+.sleep-worst {
     margin: 20px;
     background-color: rgb(236, 236, 17);
 }

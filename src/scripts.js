@@ -5,14 +5,20 @@ var friendsDisplay = document.querySelector('.friends');
 var hydrationAverageDisplay = document.querySelector('.hydration-average');
 var hydrationDailyDisplay = document.querySelector('.hydration-daily');
 var hydrationWeeklyDisplay = document.querySelector('.hydration-weekly');
+var sleepDailyDisplay = document.querySelector('.today-sleep-data');
+var sleepWeeklyDisplay = document.querySelector('.sleep-weekly');
+var sleepAverageDisplay = document.querySelector('.sleep-average');
+var sleepWorstDisplay = document.querySelector('.sleep-worst');
 
 let user = new User()
 let userRepo = new UserRepository(userData);
 let hydration = new Hydration(hydrationData);
+let sleep = new Sleep(sleepData);
 const date = "2019/09/22";
 
 window.onload = displayData()
 
+// Refactor based on data being displayed (smaller helper functions)
 function displayData() {
   makeUser();
   displayUserInfo();
@@ -22,6 +28,10 @@ function displayData() {
   displayAverageHydation();
   displayDailyHydration();
   displayWeeklyHydration();
+  displayDailySleep();
+  displayWeeklySleep();
+  displayAverageSleep();
+  displayBadSleeper();
 }
 
 function makeUser() {
@@ -87,4 +97,37 @@ function displayWeeklyHydration() {
     <p>4 days ago you had ${weeklyHydration[2]} ounces of water,</p>
     <p>5 days ago you had ${weeklyHydration[1]} ounces of water,</p>
     <p>6 days ago you had ${weeklyHydration[0]} ounces of water</p>`) 
+}
+
+function displayDailySleep() {
+  let dailyHoursSlept = sleep.hoursSleptOnDay(date, user.id);
+  let dailySleepQuality = sleep.sleepQualityOnDay(date, user.id);
+  sleepDailyDisplay.insertAdjacentHTML('beforeend', 
+  `<p>Wake up! You have slept ${dailyHoursSlept} hours today, your quality was a ${dailySleepQuality} out of 5</p>`)
+}
+
+function displayWeeklySleep() {
+  let weeklySleepHours = sleep.hoursSleptEachDayInAWeek(date, user.id)
+  console.log(weeklySleepHours)
+  sleepWeeklyDisplay.insertAdjacentHTML('beforeend', 
+  `<p>Yesterday you slept ${weeklySleepHours[5]} hours,</p>
+  <p>2 days ago you slept ${weeklySleepHours[4]} hours,</p>
+  <p>3 days ago you slept ${weeklySleepHours[3]} hours,</p>
+  <p>4 days ago you slept ${weeklySleepHours[2]} hours,</p>
+  <p>5 days ago you slept ${weeklySleepHours[1]} hours,</p>
+  <p>6 days ago you slept ${weeklySleepHours[0]} hours</p>`)
+}
+
+function displayAverageSleep() {
+  let averageSleepQuality = sleep.avgSleepQualityAllTime(user.id);
+  let averageHoursSlept = sleep.avgSleptPerDay(user.id);
+  sleepAverageDisplay.insertAdjacentHTML('beforeend', 
+  `<p>You normal sleep average is ${averageSleepQuality} out of 5, you typically sleep for ${averageHoursSlept} hours.</p>`)
+}
+
+function displayBadSleeper() {
+  let worstSleeper = sleep.findUsersWhoNeedNap(date);
+  let worstSleeperName = userRepo.getDataById(worstSleeper.userID)
+  sleepWorstDisplay.insertAdjacentHTML('beforeend', 
+`<p> Tell ${worstSleeperName.name} to take a nap! They only slept ${worstSleeper.hoursSlept} hours last night!`)
 }
