@@ -32,7 +32,8 @@ body {
 .hydration-weekly,
 .today-sleep-data,
 .sleep-weekly,
-.sleep-average {
+.sleep-average,
+.sleep-worst {
     margin: 20px;
     background-color: rgb(236, 236, 17);
 }

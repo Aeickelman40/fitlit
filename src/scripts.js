@@ -8,6 +8,7 @@ var hydrationWeeklyDisplay = document.querySelector('.hydration-weekly');
 var sleepDailyDisplay = document.querySelector('.today-sleep-data');
 var sleepWeeklyDisplay = document.querySelector('.sleep-weekly');
 var sleepAverageDisplay = document.querySelector('.sleep-average');
+var sleepWorstDisplay = document.querySelector('.sleep-worst');
 
 let user = new User()
 let userRepo = new UserRepository(userData);
@@ -30,6 +31,7 @@ function displayData() {
   displayDailySleep();
   displayWeeklySleep();
   displayAverageSleep();
+  displayBadSleeper();
 }
 
 function makeUser() {
@@ -121,4 +123,11 @@ function displayAverageSleep() {
   let averageHoursSlept = sleep.avgSleptPerDay(user.id);
   sleepAverageDisplay.insertAdjacentHTML('beforeend', 
   `<p>You normal sleep average is ${averageSleepQuality} out of 5, you typically sleep for ${averageHoursSlept} hours.</p>`)
+}
+
+function displayBadSleeper() {
+  let worstSleeper = sleep.findUsersWhoNeedNap(date);
+  let worstSleeperName = userRepo.getDataById(worstSleeper.userID)
+  sleepWorstDisplay.insertAdjacentHTML('beforeend', 
+`<p> Tell ${worstSleeperName.name} to take a nap! They only slept ${worstSleeper.hoursSlept} hours last night!`)
 }
