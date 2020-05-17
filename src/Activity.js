@@ -1,6 +1,4 @@
 
-const UserRepository = require('../src/UserRepository')
-
 class Activity {
   constructor(activityData) {
     if(activityData) {
@@ -63,18 +61,25 @@ class Activity {
     let activityInfo = this.getActivityDataById(userId);
     let userData = userRepo.getDataById(userId);
     let daysExceededGoal = activityInfo.filter(element => element.numSteps > userData.dailyStepGoal)
-    console.log(daysExceededGoal)
+    let datesExceeded = daysExceededGoal.map(element => element.date)
+    return datesExceeded
   }
 
-  allTimeStairClimbingRecord() {
-
+  allTimeStairClimbingRecord(userId) {
+    let activityInfo = this.getActivityDataById(userId);
+    let sortedInfo = activityInfo.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs)
+    return sortedInfo[0].flightsOfStairs
   }
 
-  stairsClimbedOnADay(userId, date) {
-    let userActivityData = this.getActivityDataById(userId);
+  stairsClimbedOnADay(date) {
     if(date) {
-    let dayActivity = userActivityData.find(element => element.date === date);
-    return dayActivity.flightsOfStairs
+    let dayActivity = this.activityData.filter(element => element.date === date);
+    let allStairCount = dayActivity.reduce((acc, element) => {
+      acc += element.flightsOfStairs
+      return acc
+     }, 0)
+     console.log(allStairCount / dayActivity.length)
+    return allStairCount / dayActivity.length
     }
   }
 
