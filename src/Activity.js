@@ -20,15 +20,15 @@ class Activity {
     return Math.round(feetToMiles * 10) / 10
   }
   
-  minutesActiveOnDay(userId, date) {
+  activityOnDay(userId, date, activityType) {
     let userActivityData = this.getActivityDataById(userId)
     if (date) {
       let dayActivity = userActivityData.find(userInfo => userInfo.date === date)
-      return dayActivity.minutesActive
+      return dayActivity[activityType]
     }
   }
 
-  minutesActiveWeeklyAverage(userId, date) {
+  averageUserActivityForWeek(userId, date, activityType) {
     if (date) {
       let activityInfo = this.getActivityDataById(userId)
       let activityIndex;
@@ -38,11 +38,11 @@ class Activity {
         }
       });
       let weekActivityData = activityInfo.splice((activityIndex - 6), activityIndex)
-      let allTimeMinutesActive = weekActivityData.reduce((acc, element) => {
-        acc += element.minutesActive;
+      let activityCount = weekActivityData.reduce((acc, element) => {
+        acc += element[activityType];
         return acc
       }, 0)
-      return Math.round(allTimeMinutesActive / 7)
+      return Math.round(activityCount / 7)
     }
   }
 
