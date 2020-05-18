@@ -1,7 +1,7 @@
 
 class Activity {
   constructor(activityData) {
-    if(activityData) {
+    if (activityData) {
       this.activityData = activityData
     }
   }
@@ -23,17 +23,17 @@ class Activity {
   minutesActiveOnDay(userId, date) {
     let userActivityData = this.getActivityDataById(userId)
     if (date) {
-     let dayActivity = userActivityData.find(userInfo => userInfo.date === date)
-     return dayActivity.minutesActive
+      let dayActivity = userActivityData.find(userInfo => userInfo.date === date)
+      return dayActivity.minutesActive
     }
   }
 
   minutesActiveWeeklyAverage(userId, date) {
-    if(date) {
+    if (date) {
       let activityInfo = this.getActivityDataById(userId)
       let activityIndex;
       activityInfo.forEach((element, i) => {
-        if(element.date === date) {
+        if (element.date === date) {
           activityIndex = i;
         }
       });
@@ -72,14 +72,14 @@ class Activity {
   }
 
   stairsClimbedOnADay(date) {
-    if(date) {
-    let dayActivity = this.activityData.filter(element => element.date === date);
-    let allStairCount = dayActivity.reduce((acc, element) => {
-      acc += element.flightsOfStairs
-      return acc
-     }, 0)
-     console.log(allStairCount / dayActivity.length)
-    return allStairCount / dayActivity.length
+    if (date) {
+      let dayActivity = this.activityData.filter(element => element.date === date);
+      let allStairCount = dayActivity.reduce((acc, element) => {
+        acc += element.flightsOfStairs
+        return acc
+      }, 0)
+      // console.log(allStairCount / dayActivity.length)
+      return Math.round((allStairCount / dayActivity.length) * 10) / 10;
     }
   }
 
