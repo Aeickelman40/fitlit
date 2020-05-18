@@ -27,13 +27,7 @@ body {
     background-color: ivory;
 }
 
-.hydration-average,
-.hydration-daily,
-.hydration-weekly,
-.today-sleep-data,
-.sleep-weekly,
-.sleep-average,
-.sleep-worst {
+.display {
     margin: 20px;
     background-color: rgb(236, 236, 17);
 }
