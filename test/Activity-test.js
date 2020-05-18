@@ -37,14 +37,14 @@ describe('Activity', function() {
 
     let activity = new Activity(testActivityData)
     expect(activity).to.be.an.instanceof(Activity);
-    expect(activity.minutesActiveOnDay(2, "2019/06/15")).to.deep.equal(138)
+    expect(activity.activityOnDay(2, "2019/06/15", 'minutesActive')).to.deep.equal(138)
   });    
 
   it('should give a users minutesActive average for a week', function() {
 
     let activity = new Activity(testActivityData)
     expect(activity).to.be.an.instanceof(Activity);
-    expect(activity.minutesActiveWeeklyAverage(1, "2019/06/21")).to.deep.equal(152)
+    expect(activity.averageUserActivityForWeek(1, "2019/06/21", 'minutesActive')).to.deep.equal(152)
   }) 
 
   it('should return miles walked in a given day', function() {
