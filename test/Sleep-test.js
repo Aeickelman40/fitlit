@@ -60,6 +60,7 @@ describe('Sleep', function() {
     expect(sleep).to.be.an.instanceof(Sleep);
     expect(sleep.hoursSleptEachDayInAWeek("2019/06/22", 1)).to.deep.equal([4.1, 8, 10.4, 10.7, 9.3, 7.8, 7])
   }); 
+  
   it('should be able to return a weeks worth of quality sleep data', function() {
     let sleep = new Sleep(testSleepData)
     expect(sleep).to.be.an.instanceof(Sleep);
