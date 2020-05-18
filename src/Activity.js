@@ -71,20 +71,24 @@ class Activity {
     return sortedInfo[0].flightsOfStairs
   }
 
-  stairsClimbedOnADay(date) {
+  averageAllUserActivity(date, activityType) {
     if (date) {
-      let dayActivity = this.activityData.filter(element => element.date === date);
-      let allStairCount = dayActivity.reduce((acc, element) => {
-        acc += element.flightsOfStairs
+      let dayActivity = this.activityData.filter(userInfo => userInfo.date === date);
+      let allUserActivityCount = dayActivity.reduce((acc, element) => {
+        acc += element[activityType]
         return acc
       }, 0)
-      // console.log(allStairCount / dayActivity.length)
-      return Math.round((allStairCount / dayActivity.length) * 10) / 10;
+      return Math.round(allUserActivityCount / dayActivity.length)
     }
   }
 
-  averageActivity() {
-
+  topClimberOfTheDay(date, userRepo) {
+    let dayActivity = this.activityData.filter(userInfo => userInfo.date === date);
+    let sortedInfo = dayActivity.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs)
+    let feetClimbed = sortedInfo[0].flightsOfStairs * 12
+    let userData = userRepo.getDataById(sortedInfo[0].userID);
+    let topClimber = [userData.name, feetClimbed]
+    return topClimber
   }
 }
 
