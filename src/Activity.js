@@ -46,6 +46,24 @@ class Activity {
     }
   }
 
+  stepCountForWholeWeek(userId, date) {
+    if (date) {
+      let activityInfo = this.getActivityDataById(userId)
+      let activityIndex;
+      activityInfo.forEach((element, i) => {
+        if (element.date === date) {
+          activityIndex = i;
+        }
+      });
+      let weekActivityData = activityInfo.splice((activityIndex - 6), activityIndex)
+      let activityCount = weekActivityData.reduce((acc, element) => {
+        acc += element.numSteps;
+        return acc
+      }, 0)
+      return activityCount
+    }
+  }
+
   obtainedStepGoal(userId, date, userRepo) {
     let activityInfo = this.getActivityDataById(userId);
     let dayData = activityInfo.find(element => element.date === date);
