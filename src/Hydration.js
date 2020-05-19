@@ -23,22 +23,23 @@ class Hydration {
       let userHydrationData = this.getHydrationDataById(userId);
       let dayHydration = userHydrationData.find(element => element.date === date);
       return dayHydration.numOunces
+      }
     } 
-  } 
 
   fluidConsumedForAWeek(date, userId) {
-    let userHydrationData = this.getHydrationDataById(userId);
-    let hydrationIndex;
-    userHydrationData.forEach((element, i) => {
-      if (element.date === date) {
-        hydrationIndex = i;
-      }
-    })
-    let weekData = userHydrationData.splice((hydrationIndex - 6), hydrationIndex)
-    return weekData.map(element => element.numOunces)
+    if (date) {
+      let userHydrationData = this.getHydrationDataById(userId);
+      let hydrationIndex;
+      userHydrationData.forEach((element, i) => {
+        if (element.date === date) {
+          hydrationIndex = i;
+       }
+     })
+      let weekData = userHydrationData.splice((hydrationIndex - 6), hydrationIndex)
+      return weekData.map(element => element.numOunces)
+    }
   }
 }
-
 if (typeof module !== 'undefined') {
   module.exports = Hydration;
 }
