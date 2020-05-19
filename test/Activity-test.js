@@ -102,6 +102,7 @@ describe('Activity', function() {
   it('should return the top climber on a given day, with how many vertical feet they climbed', function() {
     let userRepo = new UserRepository(testUserData)
     let activity = new Activity(testActivityData)
+    console.log('1', testActivityData)
     expect(activity).to.be.an.instanceof(Activity);
     expect(activity.topClimberOfTheDay("2019/06/18", userRepo)).to.deep.equal(["Laney Abshire", 468])
   })

@@ -72,9 +72,22 @@ function populateFriends() {
   user.friends.forEach(friend => {
     friendsObjects.push(userRepo.getDataById(friend)); 
   })
-  let friendsNames = friendsObjects.map(friend => {
-    return friendsDisplay.innerHTML = `<p>${friend.name}</p>`
+  
+  let sortedFriendsSteps = friendsObjects.map(element => {
+    return {
+      name: element.name,
+      numSteps: function() {activity.averageUserActivityForWeek(element.id, date, 'numSteps')}
+    }
   })
+
+  console.log('sorted', sortedFriendsSteps)
+  // activity.averageUserActivityForWeek(friend.id, date, 'numSteps').sort((a, b) => b.numSteps - a.numSteps);
+
+  let friendsNames = friendsObjects.map(friend => {
+    return friendsDisplay.innerHTML = `<p>${friend.name} steps this week: ${activity.stepCountForWholeWeek(friend.id, date)}</p>`
+  })
+  console.log(friendsNames)
+  friendsNames.pop()
   return friendsDisplay.insertAdjacentHTML('beforeend', 
     `${friendsNames.join('')}`)  
 }
@@ -207,6 +220,6 @@ function displayWeeklyActivityCount() {
 function displayTopClimber() {
   let mostClimbed = activity.topClimberOfTheDay(date, userRepo);
   topClimberDisplay.insertAdjacentHTML('beforeend',
-  `${mostClimbed} is the top climber of the day, they climbed ${mostClimbed} vertical feet today!`)
+  `${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!`)
 }
 
