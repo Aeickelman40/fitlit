@@ -24,7 +24,6 @@ describe('User Repository', function() {
   })
 
   it('should not require a property to create a new User Repository', function () {
-
     let userRepository = new UserRepository();
     assert.equal(userRepository.data, undefined);
   })

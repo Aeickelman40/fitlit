@@ -1,4 +1,3 @@
-
 class Activity {
   constructor(activityData) {
     if (activityData) {
@@ -10,19 +9,21 @@ class Activity {
   }
 
   milesWalked(userId, date, userRepo) {
-    let userActivityInfo = this.getActivityDataById(userId);
-    let userData = userRepo.getDataById(userId)
-    let stride = userData.strideLength
-    let dayInfo = userActivityInfo.find(element => element.date === date);
-    let stepsToStrides = (dayInfo.numSteps / 2)
-    let stridesToFeet = stepsToStrides * stride
-    let feetToMiles = stridesToFeet / 5280
-    return Math.round(feetToMiles * 10) / 10
+    if (date) {
+      let userActivityInfo = this.getActivityDataById(userId);
+      let userData = userRepo.getDataById(userId)
+      let stride = userData.strideLength
+      let dayInfo = userActivityInfo.find(element => element.date === date);
+      let stepsToStrides = (dayInfo.numSteps / 2)
+      let stridesToFeet = stepsToStrides * stride
+      let feetToMiles = stridesToFeet / 5280
+      return Math.round(feetToMiles * 10) / 10
+    }
   }
   
   activityOnDay(userId, date, activityType) {
-    let userActivityData = this.getActivityDataById(userId)
     if (date) {
+      let userActivityData = this.getActivityDataById(userId)
       let dayActivity = userActivityData.find(userInfo => userInfo.date === date)
       return dayActivity[activityType]
     }
@@ -65,13 +66,15 @@ class Activity {
   }
 
   obtainedStepGoal(userId, date, userRepo) {
-    let activityInfo = this.getActivityDataById(userId);
-    let dayData = activityInfo.find(element => element.date === date);
-    let userData = userRepo.getDataById(userId);
+    if (date) {
+      let activityInfo = this.getActivityDataById(userId);
+      let dayData = activityInfo.find(element => element.date === date);
+      let userData = userRepo.getDataById(userId);
     if (dayData.numSteps >= userData.dailyStepGoal) {
       return true;
     } else {
       return false
+      }
     }
   }
 
@@ -101,22 +104,14 @@ class Activity {
   }
 
   topClimberOfTheDay(date, userRepo) {
-    let dayActivity = this.activityData.filter(userInfo => userInfo.date === date);
-
-    let sortedInfo = dayActivity.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs)
-    let feetClimbed = sortedInfo[0].flightsOfStairs * 12
-    let userData = userRepo.getDataById(sortedInfo[0].userID);
-    console.log(userData)
-    let topClimber = [userData.name, feetClimbed]
-   
-    return topClimber
-  }
-
-  calculateStepTrends(userId) {
-    let activityInfo = this.getActivityDataById(userId);
-    let sortedData = activityInfo.sort((a, b) => b.numSteps - a.numSteps)
-    console.log(sortedData)
-    let filteredData = activityInfo.filter((element, i) => element > element[i - 1])
+    if (date) {
+      let dayActivity = this.activityData.filter(userInfo => userInfo.date === date);
+      let sortedInfo = dayActivity.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs)
+      let feetClimbed = sortedInfo[0].flightsOfStairs * 12
+      let userData = userRepo.getDataById(sortedInfo[0].userID);
+      let topClimber = [userData.name, feetClimbed]
+      return topClimber;
+    }
   }
 }
 
