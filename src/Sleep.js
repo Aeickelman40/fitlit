@@ -94,7 +94,9 @@ class Sleep {
     let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
     let sortedSleepers = daysSleep.sort((a, b) => b.hoursSlept - a.hoursSlept)
     let bestSleeper = sortedSleepers[0]
+    console.log(bestSleeper)
     let topSleepers = sortedSleepers.filter(element => element.hoursSlept === bestSleeper.hoursSlept)
+    console.log('1', topSleepers)
     return topSleepers
   }
 

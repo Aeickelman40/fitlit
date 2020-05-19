@@ -102,11 +102,21 @@ class Activity {
 
   topClimberOfTheDay(date, userRepo) {
     let dayActivity = this.activityData.filter(userInfo => userInfo.date === date);
+
     let sortedInfo = dayActivity.sort((a, b) => b.flightsOfStairs - a.flightsOfStairs)
     let feetClimbed = sortedInfo[0].flightsOfStairs * 12
     let userData = userRepo.getDataById(sortedInfo[0].userID);
+    console.log(userData)
     let topClimber = [userData.name, feetClimbed]
+   
     return topClimber
+  }
+
+  calculateStepTrends(userId) {
+    let activityInfo = this.getActivityDataById(userId);
+    let sortedData = activityInfo.sort((a, b) => b.numSteps - a.numSteps)
+    console.log(sortedData)
+    let filteredData = activityInfo.filter((element, i) => element > element[i - 1])
   }
 }
 
