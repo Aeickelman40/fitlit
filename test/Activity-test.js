@@ -106,4 +106,5 @@ describe('Activity', function() {
     expect(activity).to.be.an.instanceof(Activity);
     expect(activity.topClimberOfTheDay("2019/06/18", userRepo)).to.deep.equal(["Laney Abshire", 468])
   })
+
 });
