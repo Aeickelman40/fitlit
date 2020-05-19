@@ -1,22 +1,22 @@
-var infoCard = document.querySelector('.info-card');
-var welcomeMessage = document.querySelector('.welcome-message');
-var compareStepDisplay = document.querySelector('.compare-steps');
-var friendsDisplay = document.querySelector('.friends');
-var hydrationAverageDisplay = document.querySelector('.hydration-average');
-var hydrationDailyDisplay = document.querySelector('.hydration-daily');
-var hydrationWeeklyDisplay = document.querySelector('.hydration-weekly');
-var sleepDailyDisplay = document.querySelector('.today-sleep-data');
-var sleepWeeklyDisplay = document.querySelector('.sleep-weekly');
-var sleepAverageDisplay = document.querySelector('.sleep-average');
-var sleepWorstDisplay = document.querySelector('.sleep-worst');
-var topClimberDisplay = document.querySelector('.top-climber');
-var weeklyMinutesActiveDisplay = document.querySelector('.weekly-minutes-active');
-var weeklyFlightOfStairsDisplay = document.querySelector('.weekly-flight-of-stairs')
-var weeklyStepCountDisplay = document.querySelector('.weekly-step-count');
-var numMilesOnDayDisplay = document.querySelector('.num-miles-on-day');
-var numActiveMinutesOnDayDisplay = document.querySelector('.num-active-minutes-on-day');
-var numStepsOnDayDisplay = document.querySelector('.num-steps-on-day');
-var compareActivityDisplay = document.querySelector('.user-vs-average')
+const infoCard = document.querySelector('.info-card');
+const welcomeMessage = document.querySelector('.welcome-message');
+const compareStepDisplay = document.querySelector('.compare-steps');
+const friendsDisplay = document.querySelector('.friends');
+const hydrationAverageDisplay = document.querySelector('.hydration-average');
+const hydrationDailyDisplay = document.querySelector('.hydration-daily');
+const hydrationWeeklyDisplay = document.querySelector('.hydration-weekly');
+const sleepDailyDisplay = document.querySelector('.today-sleep-data');
+const sleepWeeklyDisplay = document.querySelector('.sleep-weekly');
+const sleepAverageDisplay = document.querySelector('.sleep-average');
+const sleepWorstDisplay = document.querySelector('.sleep-worst');
+const topClimberDisplay = document.querySelector('.top-climber');
+const weeklyMinutesActiveDisplay = document.querySelector('.weekly-minutes-active');
+const weeklyFlightOfStairsDisplay = document.querySelector('.weekly-flight-of-stairs');
+const weeklyStepCountDisplay = document.querySelector('.weekly-step-count');
+const numMilesOnDayDisplay = document.querySelector('.num-miles-on-day');
+const numActiveMinutesOnDayDisplay = document.querySelector('.num-active-minutes-on-day');
+const numStepsOnDayDisplay = document.querySelector('.num-steps-on-day');
+const compareActivityDisplay = document.querySelector('.user-vs-average');
 
 let user = new User()
 let userRepo = new UserRepository(userData);
@@ -45,6 +45,8 @@ function displayData() {
   displayNumMinutesActiveOnDay();
   displayNumMilesOnDay();
   displayActivityComparedToAllUsers();
+  displayWeeklyActivityCount();
+  displayTopClimber();
 }
 
 function makeUser() {
@@ -167,32 +169,44 @@ function displayActivityComparedToAllUsers() {
   let userMinutesActive = activity.activityOnDay(user.id, date, 'minutesActive');
   let userFlightsOfStairs = activity.activityOnDay(user.id, date, 'flightsOfStairs');
   let userNumSteps = activity.activityOnDay(user.id, date, 'numSteps')
-  if(userNumSteps > averageNumStepsAllUsers) {
-     compareActivityDisplay.insertAdjacentHTML('beforeend', 
-    `You're doing great! You are ${userNumSteps - averageNumStepsAllUsers} steps ahead of everyone!`)
+  if (userNumSteps > averageNumStepsAllUsers) {
+    compareActivityDisplay.insertAdjacentHTML('beforeend', 
+      `You're doing great! You are ${userNumSteps - averageNumStepsAllUsers} steps ahead of everyone!`)
   } else if (userNumSteps < averageNumStepsAllUsers) {
     compareActivityDisplay.insertAdjacentHTML('beforeend', 
-    `You are ${averageNumStepsAllUsers - userNumSteps} steps behind everyone! Step it up!`)
+      `You are ${averageNumStepsAllUsers - userNumSteps} steps behind everyone! Step it up!`)
   }
-  if(userFlightsOfStairs > averageStairsAllUsers) {
-       compareActivityDisplay.insertAdjacentHTML('beforeend', 
-    `You're doing great! You are ${userFlightsOfStairs - averageStairsAllUsers} flights ahead of everyone!`)
+  if (userFlightsOfStairs > averageStairsAllUsers) {
+    compareActivityDisplay.insertAdjacentHTML('beforeend', 
+      `You're doing great! You are ${userFlightsOfStairs - averageStairsAllUsers} flights ahead of everyone!`)
   } else if (userFlightsOfStairs < averageStairsAllUsers) {
-     compareActivityDisplay.insertAdjacentHTML('beforeend', 
-    `You are ${averageStairsAllUsers - userFlightsOfStairs} flights behind everyone! Step it up!`)
+    compareActivityDisplay.insertAdjacentHTML('beforeend', 
+      `You are ${averageStairsAllUsers - userFlightsOfStairs} flights behind everyone! Step it up!`)
   } 
-  if(userMinutesActive > averageMinutesActiveAllUsers) {
-     compareActivityDisplay.insertAdjacentHTML('beforeend', 
-    `You're doing great! You are ${userMinutesActive - averageMinutesActiveAllUsers} active minutes ahead of everyone!`)
+  if (userMinutesActive > averageMinutesActiveAllUsers) {
+    compareActivityDisplay.insertAdjacentHTML('beforeend', 
+      `You're doing great! You are ${userMinutesActive - averageMinutesActiveAllUsers} active minutes ahead of everyone!`)
   } else if (userMinutesActive < averageMinutesActiveAllUsers) {
-     compareActivityDisplay.insertAdjacentHTML('beforeend', 
-    `You are ${averageMinutesActiveAllUsers - userMinutesActive} active minutes behind everyone! Step it up!`)
-  }
-
-  function displayWeeklyActivityCount() {
-    let stepsAverage = activity.averageUserActivityForWeek(user.id, date, 'numSteps');
-    let flightsOfStairsAverage = activity.averageUserActivityForWeek(user.id, date, 'flightsOfStairs');
-    let minutesActiveAverage = activity.averageUserActivityForWeek(user.id, date, 'minutesActive');
-
+    compareActivityDisplay.insertAdjacentHTML('beforeend', 
+      `You are ${averageMinutesActiveAllUsers - userMinutesActive} active minutes behind everyone! Step it up!`)
   }
 }
+
+function displayWeeklyActivityCount() {
+  let stepsAverage = activity.averageUserActivityForWeek(user.id, date, 'numSteps');
+  let flightsOfStairsAverage = activity.averageUserActivityForWeek(user.id, date, 'flightsOfStairs');
+  let minutesActiveAverage = activity.averageUserActivityForWeek(user.id, date, 'minutesActive');
+  weeklyStepCountDisplay.insertAdjacentHTML('beforeend',
+    `You have walked an average of ${stepsAverage} steps this week`);
+  weeklyFlightOfStairsDisplay.insertAdjacentHTML('beforeend',
+    `You have climbed an average of ${flightsOfStairsAverage} flights of stairs this week`);
+  weeklyMinutesActiveDisplay.insertAdjacentHTML('beforeend',
+    `You have worked it an average of ${minutesActiveAverage} minutes this week`);   
+}
+
+function displayTopClimber() {
+  let mostClimbed = activity.topClimberOfTheDay(date, userRepo);
+  topClimberDisplay.insertAdjacentHTML('beforeend',
+  `${mostClimbed} is the top climber of the day, they climbed ${mostClimbed} vertical feet today!`)
+}
+

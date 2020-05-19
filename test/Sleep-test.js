@@ -94,36 +94,37 @@ describe('Sleep', function() {
     ])
   })
 
-it('should return the top sleepers, one or more', function() {
-  let sleep = new Sleep(testSleepData)
-  expect(sleep).to.be.an.instanceof(Sleep);
-  expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/29")).to.deep.equal([
-    {
-      userID: 8,
-      date: '2019/06/29',
-      hoursSlept: 9.7,
-      sleepQuality: 3.6
-    },
-    {
-      userID: 9,
-      date: '2019/06/29',
-      hoursSlept: 9.7,
-      sleepQuality: 3.5
-    }
-  ])
-})
+  it('should return the top sleepers, one or more', function() {
+    let sleep = new Sleep(testSleepData)
+    expect(sleep).to.be.an.instanceof(Sleep);
+    console.log(sleep.usersWhoSleptMostOnGivenDay("2019/06/29"))
+    expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/29")).to.deep.equal([
+      {
+        userID: 8,
+        date: "2019/06/29",
+        hoursSlept: 9.7,
+        sleepQuality: 3.6
+      },
+      {
+        userID: 9,
+        date: "2019/06/29",
+        hoursSlept: 9.7,
+        sleepQuality: 3.5
+      }
+    ])
+  })
 
-it('should return the user with the least amount of sleep hours (needs nap)', function() {
-  let sleep = new Sleep(testSleepData);
-  expect(sleep).to.be.an.instanceof(Sleep);
-  expect(sleep.findUsersWhoNeedNap("2019/06/15")).to.deep.equal(
-    { 
-      userID: 5, 
-      date: '2019/06/15', 
-      hoursSlept: 4.1, 
-      sleepQuality: 3.6 
-    }
-  )
+  it('should return the user with the least amount of sleep hours (needs nap)', function() {
+    let sleep = new Sleep(testSleepData);
+    expect(sleep).to.be.an.instanceof(Sleep);
+    expect(sleep.findUsersWhoNeedNap("2019/06/15")).to.deep.equal(
+      { 
+        userID: 5, 
+        date: '2019/06/15', 
+        hoursSlept: 4.1, 
+        sleepQuality: 3.6 
+      }
+    )
   });
 });
 
