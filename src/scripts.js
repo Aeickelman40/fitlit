@@ -67,15 +67,28 @@ function welcomeMessageOnLoad() {
   welcomeMessage.innerText = `Welcome to Fitlit ${user.returnFirstName()}!`
 }
 
+
 function populateFriends() {
   let friendsObjects = []
   user.friends.forEach(friend => {
     friendsObjects.push(userRepo.getDataById(friend)); 
   })
-  let friendsNames = friendsObjects.map(friend => {
-    return friendsDisplay.innerHTML = `<p>${friend.name}</p>`
+  let friendsSteps = friendsObjects.map(element => {
+    return {
+     name: element.name,
+    numSteps: activity.stepCountForWholeWeek(element.id, date)
+   }
+   })
+   let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
+   console.log('sorted', sortedFriends)
+  
+
+  let friendsNames = sortedFriends.map(friend => {
+    return friendsDisplay.innerHTML = `<p>${friend.name} steps this week: ${friend.numSteps}</p>`
   })
-  return friendsDisplay.insertAdjacentHTML('beforeend', 
+  friendsNames.pop()
+  
+  return friendsDisplay.insertAdjacentHTML('afterbegin', 
     `${friendsNames.join('')}`)  
 }
 
