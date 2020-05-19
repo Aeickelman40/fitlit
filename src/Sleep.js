@@ -28,44 +28,47 @@ class Sleep {
   }
 
   hoursSleptOnDay(date, userId) {
+  if (date) {
     let sleepInfo = this.getSleepDataById(userId);
-    if (date) {
-      let daysSleep = sleepInfo.find(element => element.date === date);
-      return daysSleep.hoursSlept
-    } 
+    let daysSleep = sleepInfo.find(element => element.date === date)
+    return daysSleep.hoursSlept
+    }
   }
 
   sleepQualityOnDay(date, userId) {
-    let sleepInfo = this.getSleepDataById(userId);
     if (date) {
+      let sleepInfo = this.getSleepDataById(userId);
       let daysSleep = sleepInfo.find(element => element.date === date);
       return daysSleep.sleepQuality
-    } 
+    }
   }
 
   hoursSleptEachDayInAWeek(date, userId) {
-    let sleepInfo = this.getSleepDataById(userId);
-    let sleepIndex;
-    sleepInfo.forEach((element, i) => {
-      if (element.date === date) {
-        sleepIndex = i;
-      }
-    })
-    let weekData = sleepInfo.splice((sleepIndex - 6), sleepIndex)
-    return weekData.map(element => element.hoursSlept)
-  }
-  
+    if (date) {
+      let sleepInfo = this.getSleepDataById(userId);
+      let sleepIndex;
+      sleepInfo.forEach((element, i) => {
+        if (element.date === date) {
+          sleepIndex = i;
+       }
+      })
+      let weekData = sleepInfo.splice((sleepIndex - 6), sleepIndex)
+      return weekData.map(element => element.hoursSlept)
+    }
+  } 
 
   sleepQualityEachDayForWeek(date, userId) {
-    let userSleepInfo = this.getSleepDataById(userId);
-    let sleepIndex;
-    userSleepInfo.forEach((element, i) => {
-      if (element.date === date) {
-        sleepIndex = i;
-      }
-    })
-    let weekData = userSleepInfo.splice((sleepIndex - 6), sleepIndex)
-    return weekData.map(element => element.sleepQuality)
+    if (date) {
+      let userSleepInfo = this.getSleepDataById(userId);
+      let sleepIndex;
+      userSleepInfo.forEach((element, i) => {
+        if (element.date === date) {
+          sleepIndex = i;
+        }
+      })
+      let weekData = userSleepInfo.splice((sleepIndex - 6), sleepIndex)
+      return weekData.map(element => element.sleepQuality)
+    }
   }
 
   avgSleepQualityForAllUsers() {
@@ -77,34 +80,39 @@ class Sleep {
   }
 
   sleepQualityForUsersAbove3(date) {
-    let sleepIndex;
-    this.sleepData.forEach((sleepInfo, i) => {
+    if (date) {
+      let data = this.sleepData.map(element => element)
+      let sleepIndex;
+      data.forEach((sleepInfo, i) => {
       if (sleepInfo.date === date) {
         sleepIndex = i
       }
-    })
-    let weekData = this.sleepData.splice((sleepIndex - 6), sleepIndex)
-    let goodSleepers = weekData.filter(sleepInfo => sleepInfo.sleepQuality >= 3)
-    let duplicateIDs = goodSleepers.map(sleepInfo => sleepInfo.userID)
-    let bestSleepersIDs = duplicateIDs.filter((ids, i) => duplicateIDs.indexOf(ids) === i)
-    return bestSleepersIDs
+     })
+      let weekData = data.splice((sleepIndex - 6), sleepIndex)
+      let goodSleepers = weekData.filter(sleepInfo => sleepInfo.sleepQuality >= 3)
+      let duplicateIDs = goodSleepers.map(sleepInfo => sleepInfo.userID)
+      let bestSleepersIDs = duplicateIDs.filter((ids, i) => duplicateIDs.indexOf(ids) === i)
+      return bestSleepersIDs
+    }
   }
 
   usersWhoSleptMostOnGivenDay(date) {
-    let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
-    let sortedSleepers = daysSleep.sort((a, b) => b.hoursSlept - a.hoursSlept)
-    let bestSleeper = sortedSleepers[0]
-    console.log(bestSleeper)
-    let topSleepers = sortedSleepers.filter(element => element.hoursSlept === bestSleeper.hoursSlept)
-    console.log('1', topSleepers)
-    return topSleepers
+    if (date) {
+      let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
+      let sortedSleepers = daysSleep.sort((a, b) => b.hoursSlept - a.hoursSlept)
+      let bestSleeper = sortedSleepers[0]
+      let topSleepers = sortedSleepers.filter(element => element.hoursSlept === bestSleeper.hoursSlept)
+      return topSleepers
+    }
   }
 
   findUsersWhoNeedNap(date) {
-    let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
-    let sortedSleepers = daysSleep.sort((a, b) => a.hoursSlept - b.hoursSlept)
-    let worstSleeper = sortedSleepers[0]
-    return worstSleeper;
+    if (date) {
+      let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
+      let sortedSleepers = daysSleep.sort((a, b) => a.hoursSlept - b.hoursSlept)
+      let worstSleeper = sortedSleepers[0]
+      return worstSleeper;
+    }
   }
 }
 
