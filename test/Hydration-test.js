@@ -26,41 +26,16 @@ describe('Hydration', function() {
   });
 
   it('should be able to return hydratation data via the users ID', function() {
-
     let hydration = new Hydration(testHydrationData)
     expect(hydration).to.be.an.instanceof(Hydration);
     expect(hydration.getHydrationDataById(11)).to.deep.equal([testHydrationData[10]])
   }); 
 
   it('should be able to return the num of ounces from any given day', function() {
-
     let hydration = new Hydration(testHydrationData)
     expect(hydration).to.be.an.instanceof(Hydration);
     expect(hydration.fluidConsumedForDay("2019/06/18", 3)).to.equal(40)
   })
-
-  // it('should be able to return undefined if the date doesn\'t exist', function() {
-  //   let hydrationData = [{
-  //     "userID": 1,
-  //     "date": "2019/06/15",
-  //     "numOunces": 37
-  //   },
-  //   {
-  //     "userID": 2,
-  //     "date": "2019/06/17",
-  //     "numOunces": 96
-  //   },
-  //   {
-  //     "userID": 44,
-  //     "date": "2019/06/18",
-  //     "numOunces": 30
-  //   }];
-
-
-  //   let hydration = new Hydration(hydrationData)
-  //   expect(hydration).to.be.an.instanceof(Hydration);
-  //   expect(hydration.fluidConsumedForDay("2019/06/19")).to.equal(undefined)
-  // })
 
   it('should be able to get users all time hydration data', function () {
     let hydration = new Hydration(testHydrationData)
@@ -68,7 +43,6 @@ describe('Hydration', function() {
   })
 
   it('should return the previous 7 days of num ounces drank', function() {
-
     let hydration = new Hydration(testHydrationData)
     expect(hydration.fluidConsumedForAWeek("2019/06/23", 1)).to.deep.equal([96, 61, 91, 50, 50, 43, 39, 61 ])
   })

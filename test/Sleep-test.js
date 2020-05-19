@@ -73,20 +73,20 @@ describe('Sleep', function() {
     expect(sleep.avgSleepQualityForAllUsers()).to.deep.equal(3)
   }); 
 
-  // it('should return the top sleepers', function() {
-  //   let sleep = new Sleep(testSleepData)
-  //   expect(sleep).to.be.an.instanceof(Sleep);
-  //   expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/27")).to.deep.equal([
-  //     {
-  //       "userID": 8,
-  //       "date": '2019/06/27',
-  //       "hoursSlept": 10.3,
-  //       "sleepQuality": 4.6
-  //     }
-  //   ])
-  // })
+  it('should return the top sleepers', function() {
+    let sleep = new Sleep(testSleepData)
+    expect(sleep).to.be.an.instanceof(Sleep);
+    expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/27")).to.deep.equal([
+      {
+        "userID": 8,
+        "date": '2019/06/27',
+        "hoursSlept": 10.3,
+        "sleepQuality": 4.6
+      }
+    ])
+  })
 
-  it('should return the top sleepers of the week', function() {
+  it('should return the top sleepers of the week with above 3 sleep quality', function() {
     let sleep = new Sleep(testSleepData)
     expect(sleep).to.be.an.instanceof(Sleep);
     expect(sleep.sleepQualityForUsersAbove3("2019/06/24")).to.deep.equal([
@@ -122,8 +122,7 @@ describe('Sleep', function() {
         date: '2019/06/15', 
         hoursSlept: 4.1, 
         sleepQuality: 3.6 
-      }
-    )
+      })
   });
 });
 
