@@ -1,3 +1,7 @@
+html {
+    font-family: 'Lato', sans-serif;
+}
+
 body {
     display: flex;
     height: 100%;
@@ -8,14 +12,14 @@ body {
 .sidebar {
     width: 25%;
     height: 100vh;
-    background-color: darkseagreen;
+    background-color: #3D5A80;
 }
 
 .display-grid {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    background-color: rgb(74, 140, 197);
+    background-color: #98c1d9;
     width: 100%;
 }
 
@@ -24,12 +28,14 @@ body {
     width: 20%;
     height: 70%;
     text-align: center;
-    background-color: ivory;
+    /* background-color: ivory; */
 }
 
 .display {
     margin: 20px;
-    background-color: rgb(236, 236, 17);
+    background-color: #e0fbfc;
+    border: 2px solid #ee6c4d;
+    border-radius: 7px;
 }
 
 .welcome-message {
@@ -43,14 +49,17 @@ body {
 .info-card {
     margin: auto;
     width: 80%;
-    height: 30%;
-    background-color: white;
+    height: 36%;
+    background-color: #e0fbfc;
+    border: 2px solid #ee6c4d;
+    border-radius: 7px;
+    box-shadow: 5px 10px;
 }
 
 .app-name {
     text-align: center;
     margin: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 24px;
     margin-top: 50px;
     width: 100%;
     font-size: 60px;
@@ -61,13 +70,30 @@ body {
     margin-top: 20px;
     width: 80%;
     height: 15%;
-    background-color: white;
+    background-color: #e0fbfc;
+    border: 2px solid #ee6c4d;
+    border-radius: 7px;
 }
 
 .friends {
     margin: auto;
     margin-top: 20px;
     width: 80%;
-    height: 25%;
-    background-color: white;
+    height: 48%;
+    background-color: #e0fbfc;
+    border: 2px solid #ee6c4d;
+    border-radius: 7px;
+}
+
+/* .date-button {
+    height: 2%;
+    width: 30%;
+    border: 2px solid #ee6c4d;
+    border-radius: 7px;
+} */
+
+.todays-stats-button,
+.date-input,
+.date-input-button {
+    height: 5%;
 }

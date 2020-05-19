@@ -67,7 +67,6 @@ function welcomeMessageOnLoad() {
   welcomeMessage.innerText = `Welcome to Fitlit ${user.returnFirstName()}!`
 }
 
-
 function populateFriends() {
   let friendsObjects = []
   user.friends.forEach(friend => {
@@ -75,19 +74,15 @@ function populateFriends() {
   })
   let friendsSteps = friendsObjects.map(element => {
     return {
-     name: element.name,
-    numSteps: activity.stepCountForWholeWeek(element.id, date)
-   }
-   })
-   let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
-   console.log('sorted', sortedFriends)
-  
-
+      name: element.name,
+      numSteps: activity.stepCountForWholeWeek(element.id, date)
+    }
+  })
+  let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
   let friendsNames = sortedFriends.map(friend => {
     return friendsDisplay.innerHTML = `<p>${friend.name} steps this week: ${friend.numSteps}</p>`
   })
-  friendsNames.pop()
-  
+  friendsNames.pop() 
   return friendsDisplay.insertAdjacentHTML('afterbegin', 
     `${friendsNames.join('')}`)  
 }
@@ -220,6 +215,6 @@ function displayWeeklyActivityCount() {
 function displayTopClimber() {
   let mostClimbed = activity.topClimberOfTheDay(date, userRepo);
   topClimberDisplay.insertAdjacentHTML('beforeend',
-  `${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!`)
+    `${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!`)
 }
 

@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
     <title>Activity Tracker</title>
   </head>
   <body>
@@ -14,30 +15,33 @@
     </article>
     <article class="display-grid">
       <h2 class="welcome-message"></h2>
-      <div class="counterbox">
-        <div class="hydration-average display"></div>
-        <div class="hydration-daily display"></div>
-        <div class="hydration-weekly display"></div>
-      </div>
-      <div class="counterbox">
-        <div class="today-sleep-data display"></div>
-        <div class="sleep-weekly display"></div>
-        <div class="sleep-average display"></div>
-        <div class="sleep-worst display"></div>
-      </div>
-      <div class="counterbox">
-        <div class="num-steps-on-day display"></div>
-        <div class="num-active-minutes-on-day display"></div>
-        <div class="num-miles-on-day display"></div>
-        <div class="user-vs-average display"></div>
-      </div>
-      <div class="counterbox">
-        <div class="weekly-step-count display"></div>
-        <div class="weekly-flight-of-stairs display"></div>
-        <div class="weekly-minutes-active display"></div>
-        <div class="top-climber display"></div>
-        </div>
-      </div>
+      <button type='button' class='todays-stats-button'>TODAYS STATS</button>
+      <input type ="date" class="date-input">
+      <button type="button" class="date-input-button">SUBMIT</button>
+      <section class="counterbox">
+        <section class="hydration-average display"></section>
+        <section class="hydration-daily display"></section>
+        <section class="hydration-weekly display"></section>
+      </section>
+      <section class="counterbox">
+        <section class="today-sleep-data display"></section>
+        <section class="sleep-weekly display"></section>
+        <section class="sleep-average display"></section>
+        <section class="sleep-worst display"></section>
+      </section>
+      <section class="counterbox">
+        <section class="num-steps-on-day display"></section>
+        <section class="num-active-minutes-on-day display"></section>
+        <section class="num-miles-on-day display"></section>
+        <section class="user-vs-average display"></section>
+      </section>
+      <section class="counterbox">
+        <section class="weekly-step-count display"></section>
+        <section class="weekly-flight-of-stairs display"></section>
+        <section class="weekly-minutes-active display"></section>
+        <section class="top-climber display"></section>
+        </section>
+      </section>
     </article>
     <script type="text/javascript" src="../src/User.js"></script>
     <script type="text/javascript" src="../src/UserRepository.js"></script>
