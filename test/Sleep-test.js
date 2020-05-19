@@ -73,18 +73,18 @@ describe('Sleep', function() {
     expect(sleep.avgSleepQualityForAllUsers()).to.deep.equal(3)
   }); 
 
-  it('should do return the top sleepers', function() {
-    let sleep = new Sleep(testSleepData)
-    expect(sleep).to.be.an.instanceof(Sleep);
-    expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/27")).to.deep.equal([
-      {
-        "userID": 8,
-        "date": '2019/06/27',
-        "hoursSlept": 10.3,
-        "sleepQuality": 4.6
-      }
-    ])
-  })
+  // it('should return the top sleepers', function() {
+  //   let sleep = new Sleep(testSleepData)
+  //   expect(sleep).to.be.an.instanceof(Sleep);
+  //   expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/27")).to.deep.equal([
+  //     {
+  //       "userID": 8,
+  //       "date": '2019/06/27',
+  //       "hoursSlept": 10.3,
+  //       "sleepQuality": 4.6
+  //     }
+  //   ])
+  // })
 
   it('should return the top sleepers of the week', function() {
     let sleep = new Sleep(testSleepData)
@@ -97,7 +97,6 @@ describe('Sleep', function() {
   it('should return the top sleepers, one or more', function() {
     let sleep = new Sleep(testSleepData)
     expect(sleep).to.be.an.instanceof(Sleep);
-    console.log(sleep.usersWhoSleptMostOnGivenDay("2019/06/29"))
     expect(sleep.usersWhoSleptMostOnGivenDay("2019/06/29")).to.deep.equal([
       {
         userID: 8,
