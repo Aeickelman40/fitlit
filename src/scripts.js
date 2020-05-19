@@ -67,7 +67,6 @@ function welcomeMessageOnLoad() {
   welcomeMessage.innerText = `Welcome to Fitlit ${user.returnFirstName()}!`
 }
 
-
 function populateFriends() {
   let friendsObjects = []
   user.friends.forEach(friend => {
@@ -216,6 +215,6 @@ function displayWeeklyActivityCount() {
 function displayTopClimber() {
   let mostClimbed = activity.topClimberOfTheDay(date, userRepo);
   topClimberDisplay.insertAdjacentHTML('beforeend',
-  `${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!`)
+    `${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!`)
 }
 
