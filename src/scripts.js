@@ -76,18 +76,14 @@ function populateFriends() {
   let friendsSteps = friendsObjects.map(element => {
     return {
      name: element.name,
-    numSteps: activity.stepCountForWholeWeek(element.id, date)
-   }
+      numSteps: activity.stepCountForWholeWeek(element.id, date)
+    }
    })
-   let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
-   console.log('sorted', sortedFriends)
-  
-
-  let friendsNames = sortedFriends.map(friend => {
+    let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
+    let friendsNames = sortedFriends.map(friend => {
     return friendsDisplay.innerHTML = `<p>${friend.name} steps this week: ${friend.numSteps}</p>`
   })
   friendsNames.pop()
-  
   return friendsDisplay.insertAdjacentHTML('afterbegin', 
     `${friendsNames.join('')}`)  
 }
