@@ -17,13 +17,22 @@ const numMilesOnDayDisplay = document.querySelector('.num-miles-on-day');
 const numActiveMinutesOnDayDisplay = document.querySelector('.num-active-minutes-on-day');
 const numStepsOnDayDisplay = document.querySelector('.num-steps-on-day');
 const compareActivityDisplay = document.querySelector('.user-vs-average');
+const todaysStatsButton = document.querySelector('.todays-stats-button');
+const dateInput = document.querySelector('.date-input');
+const dateInputButton = document.querySelector('.date-input-button');
+const todayDisplay = document.querySelector('.today-display');
+const selectedDateDisplay = document.querySelector('.selected-date-display');
+
+
 
 let user = new User()
 let userRepo = new UserRepository(userData);
 let hydration = new Hydration(hydrationData);
 let sleep = new Sleep(sleepData);
 let activity = new Activity(activityData);
-const date = "2019/09/22";
+let date = "2019/09/22";
+
+dateInputButton.addEventListener("click", changeDataDisplay)
 
 window.onload = displayData()
 
@@ -60,7 +69,7 @@ function displayUserInfo() {
     <p>${user.address}</p>
     <p>${user.email}</p>
     <p>Your stride is: ${user.strideLength} feet.</p>
-    <p>Your step goal for today is: ${user.dailyStepGoal}.</p>`
+    <p>Your daily step goal is ${user.dailyStepGoal} steps per day.</p>`
 }
 
 function welcomeMessageOnLoad() {
@@ -80,11 +89,13 @@ function populateFriends() {
    })
     let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
     let friendsNames = sortedFriends.map(friend => {
-    return friendsDisplay.innerHTML = `<p>${friend.name} steps this week: ${friend.numSteps}</p>`
+    return friendsDisplay.innerHTML = `
+    <p>${friend.name} steps this week: ${friend.numSteps}</p>`
   })
   friendsNames.pop()
   return friendsDisplay.insertAdjacentHTML('afterbegin', 
-    `${friendsNames.join('')}`)  
+    `<h3>Weekly Step Leaderboard for friends:</h3>
+    ${friendsNames.join('')}`)  
 }
 
 function compareStepGoals() {
@@ -101,43 +112,43 @@ function compareStepGoals() {
 function displayAverageHydation() {
   let userHydration = hydration.getHydrationDataById(user.id)
   let averageHydration = hydration.allTimeHydration(user.id) / userHydration.length
-  hydrationAverageDisplay.insertAdjacentHTML('beforeend', 
-    `<p>You typically drink ${averageHydration} ounces of water per day.</p>`)
+  hydrationAverageDisplay.innerHTML =
+    `<p>You typically drink ${averageHydration} ounces of water per day.</p>`
 }
 
 function displayDailyHydration() {
   let dailyHydration = hydration.fluidConsumedForDay(date, user.id);
-  hydrationDailyDisplay.insertAdjacentHTML('beforeend', 
-    `<p>Today you have had ${dailyHydration} ounces of water!</p>`);
+  hydrationDailyDisplay.innerHTML = 
+    `<p>Today you have had ${dailyHydration} ounces of water!</p>`;
 }
 
 function displayWeeklyHydration() {
   let weeklyHydration = hydration.fluidConsumedForAWeek(date, user.id) 
-  hydrationWeeklyDisplay.insertAdjacentHTML('beforeend', 
+  hydrationWeeklyDisplay.innerHTML =
     `<p>Yesterday you had ${weeklyHydration[5]} ounces of water,</p>
     <p>2 days ago you had ${weeklyHydration[4]} ounces of water,</p>
     <p>3 days ago you had ${weeklyHydration[3]} ounces of water,</p>
     <p>4 days ago you had ${weeklyHydration[2]} ounces of water,</p>
     <p>5 days ago you had ${weeklyHydration[1]} ounces of water,</p>
-    <p>6 days ago you had ${weeklyHydration[0]} ounces of water</p>`) 
+    <p>6 days ago you had ${weeklyHydration[0]} ounces of water</p>`
 }
 
 function displayDailySleep() {
   let dailyHoursSlept = sleep.hoursSleptOnDay(date, user.id);
   let dailySleepQuality = sleep.sleepQualityOnDay(date, user.id);
-  sleepDailyDisplay.insertAdjacentHTML('beforeend', 
-    `<p>Wake up! You have slept ${dailyHoursSlept} hours today, your quality was a ${dailySleepQuality} out of 5</p>`)
+  sleepDailyDisplay.innerHTML =
+    `<p>Wake up! You have slept ${dailyHoursSlept} hours today, your quality was a ${dailySleepQuality} out of 5</p>`
 }
 
 function displayWeeklySleep() {
   let weeklySleepHours = sleep.hoursSleptEachDayInAWeek(date, user.id)
-  sleepWeeklyDisplay.insertAdjacentHTML('beforeend', 
+  sleepWeeklyDisplay.innerHTML =
     `<p>Yesterday you slept ${weeklySleepHours[5]} hours,</p>
   <p>2 days ago you slept ${weeklySleepHours[4]} hours,</p>
   <p>3 days ago you slept ${weeklySleepHours[3]} hours,</p>
   <p>4 days ago you slept ${weeklySleepHours[2]} hours,</p>
   <p>5 days ago you slept ${weeklySleepHours[1]} hours,</p>
-  <p>6 days ago you slept ${weeklySleepHours[0]} hours</p>`)
+  <p>6 days ago you slept ${weeklySleepHours[0]} hours</p>`
 }
 
 function displayAverageSleep() {
@@ -150,8 +161,8 @@ function displayAverageSleep() {
 function displayBadSleeper() {
   let worstSleeper = sleep.findUsersWhoNeedNap(date);
   let worstSleeperName = userRepo.getDataById(worstSleeper.userID)
-  sleepWorstDisplay.insertAdjacentHTML('beforeend', 
-    `<p> Tell ${worstSleeperName.name} to take a nap! They only slept ${worstSleeper.hoursSlept} hours last night!`)
+  sleepWorstDisplay.innerHTML =
+    `<p> Tell ${worstSleeperName.name} to take a nap! They only slept ${worstSleeper.hoursSlept} hours last night!</p>`
 }
 
 function displayNumStepsOnDay() {
@@ -163,7 +174,7 @@ function displayNumStepsOnDay() {
 function displayNumMinutesActiveOnDay() {
   let userActivityData = activity.getActivityDataById(user.id)
   let dayActivityData = userActivityData.filter(activityInfo => activityInfo.date === date)
-  numActiveMinutesOnDayDisplay.innerHTML = `You have had ${dayActivityData[0].minutesActive} minutes active today.`
+  numActiveMinutesOnDayDisplay.innerHTML = `You have been active for ${dayActivityData[0].minutesActive} minutes today.`
 } 
 
 function displayNumMilesOnDay() {
@@ -178,25 +189,25 @@ function displayActivityComparedToAllUsers() {
   let userFlightsOfStairs = activity.activityOnDay(user.id, date, 'flightsOfStairs');
   let userNumSteps = activity.activityOnDay(user.id, date, 'numSteps')
   if (userNumSteps > averageNumStepsAllUsers) {
-    compareActivityDisplay.insertAdjacentHTML('beforeend', 
-      `You're doing great! You are ${userNumSteps - averageNumStepsAllUsers} steps ahead of everyone!`)
+    compareActivityDisplay.innerHTML = 
+      `<p>You're doing great! You are ${userNumSteps - averageNumStepsAllUsers} steps ahead of everyone!</p>`
   } else if (userNumSteps < averageNumStepsAllUsers) {
-    compareActivityDisplay.insertAdjacentHTML('beforeend', 
-      `You are ${averageNumStepsAllUsers - userNumSteps} steps behind everyone! Step it up!`)
+    compareActivityDisplay.innerHTML = 
+      `<p>You are ${averageNumStepsAllUsers - userNumSteps} steps behind everyone! Step it up!</p>`
   }
   if (userFlightsOfStairs > averageStairsAllUsers) {
-    compareActivityDisplay.insertAdjacentHTML('beforeend', 
-      `You're doing great! You are ${userFlightsOfStairs - averageStairsAllUsers} flights ahead of everyone!`)
+    compareActivityDisplay.innerHTML = 
+      `<p>You're doing great! You are ${userFlightsOfStairs - averageStairsAllUsers} flights ahead of everyone!</p>`
   } else if (userFlightsOfStairs < averageStairsAllUsers) {
-    compareActivityDisplay.insertAdjacentHTML('beforeend', 
-      `You are ${averageStairsAllUsers - userFlightsOfStairs} flights behind everyone! Step it up!`)
+    compareActivityDisplay.innerHTML = 
+      `<p>You are ${averageStairsAllUsers - userFlightsOfStairs} flights behind everyone! Step it up!</p>`
   } 
   if (userMinutesActive > averageMinutesActiveAllUsers) {
-    compareActivityDisplay.insertAdjacentHTML('beforeend', 
-      `You're doing great! You are ${userMinutesActive - averageMinutesActiveAllUsers} active minutes ahead of everyone!`)
+    compareActivityDisplay.innerHTML =
+      `<p>You're doing great! You are ${userMinutesActive - averageMinutesActiveAllUsers} active minutes ahead of everyone!</p>`
   } else if (userMinutesActive < averageMinutesActiveAllUsers) {
-    compareActivityDisplay.insertAdjacentHTML('beforeend', 
-      `You are ${averageMinutesActiveAllUsers - userMinutesActive} active minutes behind everyone! Step it up!`)
+    compareActivityDisplay.innerHTML =
+      `<p>You are ${averageMinutesActiveAllUsers - userMinutesActive} active minutes behind everyone! Step it up!</p>`
   }
 }
 
@@ -204,17 +215,45 @@ function displayWeeklyActivityCount() {
   let stepsAverage = activity.averageUserActivityForWeek(user.id, date, 'numSteps');
   let flightsOfStairsAverage = activity.averageUserActivityForWeek(user.id, date, 'flightsOfStairs');
   let minutesActiveAverage = activity.averageUserActivityForWeek(user.id, date, 'minutesActive');
-  weeklyStepCountDisplay.insertAdjacentHTML('beforeend',
-    `You have walked an average of ${stepsAverage} steps this week`);
-  weeklyFlightOfStairsDisplay.insertAdjacentHTML('beforeend',
-    `You have climbed an average of ${flightsOfStairsAverage} flights of stairs this week`);
-  weeklyMinutesActiveDisplay.insertAdjacentHTML('beforeend',
-    `You have worked it an average of ${minutesActiveAverage} minutes this week`);   
+  weeklyStepCountDisplay.innerHTML =
+    `<p>You have walked an average of ${stepsAverage} steps this week</p>`;
+  weeklyFlightOfStairsDisplay.innerHTML =
+    `<p>You have climbed an average of ${flightsOfStairsAverage} flights of stairs this week</p>`;
+  weeklyMinutesActiveDisplay.innerHTML =
+    `<p>You have 'worked it' an average of ${minutesActiveAverage} minutes this week</p>`;   
 }
 
 function displayTopClimber() {
   let mostClimbed = activity.topClimberOfTheDay(date, userRepo);
-  topClimberDisplay.insertAdjacentHTML('beforeend',
-    `${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!`)
+  topClimberDisplay.innerHTML =
+    `<p>${mostClimbed[0]} is the top climber of the day, they climbed ${mostClimbed[1]} vertical feet today!</p>`;
+}
+
+function turnDateToString() {
+  let selectedDate = dateInput.value;
+  let stringDate = selectedDate.toString();
+  let formatDate = stringDate.replace(/-/g, '/')
+  console.log(formatDate)
+  date = formatDate;
+
+}
+
+function changeDataDisplay() {
+  turnDateToString();
+  displayUserInfo();
+  welcomeMessageOnLoad();
+  populateFriends();
+  compareStepGoals();
+  displayDailyHydration();
+  displayWeeklyHydration();
+  displayDailySleep();
+  displayWeeklySleep();
+  displayBadSleeper();
+  displayNumStepsOnDay();
+  displayNumMinutesActiveOnDay();
+  displayNumMilesOnDay();
+  displayActivityComparedToAllUsers();
+  displayWeeklyActivityCount();
+  displayTopClimber();
 }
 

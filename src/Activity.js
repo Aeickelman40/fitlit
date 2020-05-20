@@ -70,10 +70,10 @@ class Activity {
       let activityInfo = this.getActivityDataById(userId);
       let dayData = activityInfo.find(element => element.date === date);
       let userData = userRepo.getDataById(userId);
-    if (dayData.numSteps >= userData.dailyStepGoal) {
-      return true;
-    } else {
-      return false
+      if (dayData.numSteps >= userData.dailyStepGoal) {
+        return true;
+      } else {
+        return false
       }
     }
   }
