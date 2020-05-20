@@ -11,8 +11,8 @@ class Sleep {
 
   avgSleptPerDay(userId) {
     let sleepInfo = this.getSleepDataById(userId);
-    let allTimeSleep = sleepInfo.reduce((acc, element) => {
-      acc += element.hoursSlept;
+    let allTimeSleep = sleepInfo.reduce((acc, sleeper) => {
+      acc += sleeper.hoursSlept;
       return acc
     }, 0);
     return Math.round((allTimeSleep / sleepInfo.length) * 10) / 10
@@ -20,25 +20,25 @@ class Sleep {
 
   avgSleepQualityAllTime(userId) {
     let sleepInfo = this.getSleepDataById(userId);
-    let allTimeSleepQuality = sleepInfo.reduce((acc, element) => {
-      acc += element.sleepQuality;
+    let allTimeSleepQuality = sleepInfo.reduce((acc, sleeper) => {
+      acc += sleeper.sleepQuality;
       return acc
     }, 0);
     return Math.round((allTimeSleepQuality / sleepInfo.length) * 10) / 10
   }
 
   hoursSleptOnDay(date, userId) {
-  if (date) {
-    let sleepInfo = this.getSleepDataById(userId);
-    let daysSleep = sleepInfo.find(element => element.date === date)
-    return daysSleep.hoursSlept
+    if (date) {
+      let sleepInfo = this.getSleepDataById(userId);
+      let daysSleep = sleepInfo.find(sleeper => sleeper.date === date)
+      return daysSleep.hoursSlept
     }
   }
 
   sleepQualityOnDay(date, userId) {
     if (date) {
       let sleepInfo = this.getSleepDataById(userId);
-      let daysSleep = sleepInfo.find(element => element.date === date);
+      let daysSleep = sleepInfo.find(sleeper => sleeper.date === date);
       return daysSleep.sleepQuality
     }
   }
@@ -47,13 +47,13 @@ class Sleep {
     if (date) {
       let sleepInfo = this.getSleepDataById(userId);
       let sleepIndex;
-      sleepInfo.forEach((element, i) => {
-        if (element.date === date) {
+      sleepInfo.forEach((sleeper, i) => {
+        if (sleeper.date === date) {
           sleepIndex = i;
-       }
+        }
       })
       let weekData = sleepInfo.splice((sleepIndex - 6), sleepIndex)
-      return weekData.map(element => element.hoursSlept)
+      return weekData.map(sleeper => sleeper.hoursSlept)
     }
   } 
 
@@ -61,13 +61,13 @@ class Sleep {
     if (date) {
       let userSleepInfo = this.getSleepDataById(userId);
       let sleepIndex;
-      userSleepInfo.forEach((element, i) => {
-        if (element.date === date) {
+      userSleepInfo.forEach((sleeper, i) => {
+        if (sleeper.date === date) {
           sleepIndex = i;
         }
       })
       let weekData = userSleepInfo.splice((sleepIndex - 6), sleepIndex)
-      return weekData.map(element => element.sleepQuality)
+      return weekData.map(sleeper => sleeper.sleepQuality)
     }
   }
 
@@ -81,13 +81,13 @@ class Sleep {
 
   sleepQualityForUsersAbove3(date) {
     if (date) {
-      let data = this.sleepData.map(element => element)
+      let data = this.sleepData.map(sleeper => sleeper)
       let sleepIndex;
       data.forEach((sleepInfo, i) => {
-      if (sleepInfo.date === date) {
-        sleepIndex = i
-      }
-     })
+        if (sleepInfo.date === date) {
+          sleepIndex = i
+        }
+      })
       let weekData = data.splice((sleepIndex - 6), sleepIndex)
       let goodSleepers = weekData.filter(sleepInfo => sleepInfo.sleepQuality >= 3)
       let duplicateIDs = goodSleepers.map(sleepInfo => sleepInfo.userID)
@@ -101,7 +101,7 @@ class Sleep {
       let daysSleep = this.sleepData.filter(sleepInfo => sleepInfo.date === date)
       let sortedSleepers = daysSleep.sort((a, b) => b.hoursSlept - a.hoursSlept)
       let bestSleeper = sortedSleepers[0]
-      let topSleepers = sortedSleepers.filter(element => element.hoursSlept === bestSleeper.hoursSlept)
+      let topSleepers = sortedSleepers.filter(sleeper => sleeper.hoursSlept === bestSleeper.hoursSlept)
       return topSleepers
     }
   }

@@ -42,17 +42,19 @@ body {
     border-radius: 7px;
 }
 
-.date-input-button,
-.todays-stats-button {
+.date-input-button {
     border-radius: 7px;
     height: 45px;
     margin: 12px;
     width: 100px;
     border: 3px solid black;
     cursor: pointer;
+    padding: 3px;
+    
 }
 
-.main-display {
+.today-display,
+.selected-date-display {
     display: flex;
     justify-content: flex-start;
 }
@@ -64,6 +66,10 @@ body {
     border: 3px solid #ee6c4d;
     border-radius: 7px;
     box-shadow: 5px 7px 7px 0px rgba(0,0,0,0.75);
+}
+
+.hide {
+    display: none;
 }
 
 .welcome-message {
@@ -93,6 +99,7 @@ body {
     margin-top: 50px;
     width: 100%;
     font-size: 60px;
+    color: #ee6c4d;
 }
 
 .compare-steps {
