@@ -1,36 +1,33 @@
-const infoCard = document.querySelector('.info-card');
-const welcomeMessage = document.querySelector('.welcome-message');
+const compareActivityDisplay = document.querySelector('.user-vs-average');
 const compareStepDisplay = document.querySelector('.compare-steps');
+const dateInput = document.querySelector('.date-input');
+const dateInputButton = document.querySelector('.date-input-button');
 const friendsDisplay = document.querySelector('.friends');
 const hydrationAverageDisplay = document.querySelector('.hydration-average');
 const hydrationDailyDisplay = document.querySelector('.hydration-daily');
 const hydrationWeeklyDisplay = document.querySelector('.hydration-weekly');
+const infoCard = document.querySelector('.info-card');
+const numActiveMinutesOnDayDisplay = document.querySelector('.num-active-minutes-on-day');
+const numMilesOnDayDisplay = document.querySelector('.num-miles-on-day');
+const numStepsOnDayDisplay = document.querySelector('.num-steps-on-day');
+const sleepAverageDisplay = document.querySelector('.sleep-average');
 const sleepDailyDisplay = document.querySelector('.today-sleep-data');
 const sleepWeeklyDisplay = document.querySelector('.sleep-weekly');
-const sleepAverageDisplay = document.querySelector('.sleep-average');
 const sleepWorstDisplay = document.querySelector('.sleep-worst');
 const topClimberDisplay = document.querySelector('.top-climber');
-const weeklyMinutesActiveDisplay = document.querySelector('.weekly-minutes-active');
 const weeklyFlightOfStairsDisplay = document.querySelector('.weekly-flight-of-stairs');
+const weeklyMinutesActiveDisplay = document.querySelector('.weekly-minutes-active');
 const weeklyStepCountDisplay = document.querySelector('.weekly-step-count');
-const numMilesOnDayDisplay = document.querySelector('.num-miles-on-day');
-const numActiveMinutesOnDayDisplay = document.querySelector('.num-active-minutes-on-day');
-const numStepsOnDayDisplay = document.querySelector('.num-steps-on-day');
-const compareActivityDisplay = document.querySelector('.user-vs-average');
-const todaysStatsButton = document.querySelector('.todays-stats-button');
-const dateInput = document.querySelector('.date-input');
-const dateInputButton = document.querySelector('.date-input-button');
-const todayDisplay = document.querySelector('.today-display');
-const selectedDateDisplay = document.querySelector('.selected-date-display');
+const welcomeMessage = document.querySelector('.welcome-message');
 
 
 
-let user = new User()
-let userRepo = new UserRepository(userData);
-let hydration = new Hydration(hydrationData);
-let sleep = new Sleep(sleepData);
 let activity = new Activity(activityData);
 let date = "2019/09/22";
+let hydration = new Hydration(hydrationData);
+let sleep = new Sleep(sleepData);
+let user = new User()
+let userRepo = new UserRepository(userData);
 
 dateInputButton.addEventListener("click", changeDataDisplay)
 
@@ -81,14 +78,14 @@ function populateFriends() {
   user.friends.forEach(friend => {
     friendsObjects.push(userRepo.getDataById(friend)); 
   })
-  let friendsSteps = friendsObjects.map(element => {
+  let friendsSteps = friendsObjects.map(friend => {
     return {
-     name: element.name,
-      numSteps: activity.stepCountForWholeWeek(element.id, date)
+      name: friend.name,
+      numSteps: activity.stepCountForWholeWeek(friend.id, date)
     }
-   })
-    let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
-    let friendsNames = sortedFriends.map(friend => {
+  })
+  let sortedFriends = friendsSteps.sort((a, b) => b.numSteps - a.numSteps)
+  let friendsNames = sortedFriends.map(friend => {
     return friendsDisplay.innerHTML = `
     <p>${friend.name} steps this week: ${friend.numSteps}</p>`
   })

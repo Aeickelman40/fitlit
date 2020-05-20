@@ -13,7 +13,7 @@ class Activity {
       let userActivityInfo = this.getActivityDataById(userId);
       let userData = userRepo.getDataById(userId)
       let stride = userData.strideLength
-      let dayInfo = userActivityInfo.find(element => element.date === date);
+      let dayInfo = userActivityInfo.find(activity => activity.date === date);
       let stepsToStrides = (dayInfo.numSteps / 2)
       let stridesToFeet = stepsToStrides * stride
       let feetToMiles = stridesToFeet / 5280
@@ -33,14 +33,14 @@ class Activity {
     if (date) {
       let activityInfo = this.getActivityDataById(userId)
       let activityIndex;
-      activityInfo.forEach((element, i) => {
-        if (element.date === date) {
+      activityInfo.forEach((activity, i) => {
+        if (activity.date === date) {
           activityIndex = i;
         }
       });
       let weekActivityData = activityInfo.splice((activityIndex - 6), activityIndex)
-      let activityCount = weekActivityData.reduce((acc, element) => {
-        acc += element[activityType];
+      let activityCount = weekActivityData.reduce((acc, activity) => {
+        acc += activity[activityType];
         return acc
       }, 0)
       return Math.round(activityCount / 7)
@@ -51,14 +51,14 @@ class Activity {
     if (date) {
       let activityInfo = this.getActivityDataById(userId)
       let activityIndex;
-      activityInfo.forEach((element, i) => {
-        if (element.date === date) {
+      activityInfo.forEach((activity, i) => {
+        if (activity.date === date) {
           activityIndex = i;
         }
       });
       let weekActivityData = activityInfo.splice((activityIndex - 6), activityIndex)
-      let activityCount = weekActivityData.reduce((acc, element) => {
-        acc += element.numSteps;
+      let activityCount = weekActivityData.reduce((acc, activity) => {
+        acc += activity.numSteps;
         return acc
       }, 0)
       return activityCount
@@ -68,7 +68,7 @@ class Activity {
   obtainedStepGoal(userId, date, userRepo) {
     if (date) {
       let activityInfo = this.getActivityDataById(userId);
-      let dayData = activityInfo.find(element => element.date === date);
+      let dayData = activityInfo.find(activity => activity.date === date);
       let userData = userRepo.getDataById(userId);
       if (dayData.numSteps >= userData.dailyStepGoal) {
         return true;
@@ -81,8 +81,8 @@ class Activity {
   daysStepGoalWasExceeded(userId, userRepo) {
     let activityInfo = this.getActivityDataById(userId);
     let userData = userRepo.getDataById(userId);
-    let daysExceededGoal = activityInfo.filter(element => element.numSteps > userData.dailyStepGoal)
-    let datesExceeded = daysExceededGoal.map(element => element.date)
+    let daysExceededGoal = activityInfo.filter(activity => activity.numSteps > userData.dailyStepGoal)
+    let datesExceeded = daysExceededGoal.map(activity => activity.date)
     return datesExceeded
   }
 
@@ -95,8 +95,8 @@ class Activity {
   averageAllUserActivity(date, activityType) {
     if (date) {
       let dayActivity = this.activityData.filter(userInfo => userInfo.date === date);
-      let allUserActivityCount = dayActivity.reduce((acc, element) => {
-        acc += element[activityType]
+      let allUserActivityCount = dayActivity.reduce((acc, activity) => {
+        acc += activity[activityType]
         return acc
       }, 0)
       return Math.round(allUserActivityCount / dayActivity.length)

@@ -5,7 +5,7 @@ class UserRepository {
     }
   }
   getDataById(userId) {
-    return this.data.find(element => element.id === userId);
+    return this.data.find(user => user.id === userId);
   }
   
   averageUserStepGoal() {

@@ -21,22 +21,22 @@ class Hydration {
   fluidConsumedForDay(date, userId) {
     if (date) {
       let userHydrationData = this.getHydrationDataById(userId);
-      let dayHydration = userHydrationData.find(element => element.date === date);
+      let dayHydration = userHydrationData.find(hydrate => hydrate.date === date);
       return dayHydration.numOunces
-      }
-    } 
+    }
+  } 
 
   fluidConsumedForAWeek(date, userId) {
     if (date) {
       let userHydrationData = this.getHydrationDataById(userId);
       let hydrationIndex;
-      userHydrationData.forEach((element, i) => {
-        if (element.date === date) {
+      userHydrationData.forEach((hydrate, i) => {
+        if (hydrate.date === date) {
           hydrationIndex = i;
-       }
-     })
+        }
+      })
       let weekData = userHydrationData.splice((hydrationIndex - 6), hydrationIndex)
-      return weekData.map(element => element.numOunces)
+      return weekData.map(hydrate => hydrate.numOunces)
     }
   }
 }
