@@ -5,7 +5,7 @@ The Flash Cards project is a solo project for Front End Module 2 students at the
 ## Contributors
 
 [Alex Eickelman](https://github.com/Aeickelman40)
-[Bill Wilke] (https://github.com/BillWilke42
+[Bill Wilke](https://github.com/BillWilke42)
 
 ## Installing / Getting started
 
