@@ -1,6 +1,6 @@
 # FitLit
 
-The Flash Cards project is a solo project for Front End Module 2 students at the Turing School of Software and Design. The idea behind the project was to build a game that runs solely in the terminal that tests the users knowledge of coding terminology. The main goals of this project were to structure code progression based around Test Driven Design, implement a class based structure, and have functions and methods utilize a Singular Responsibility Principal. 
+The FitLit project is a paired project for Front End Module 2 students at the Turing School of Software and Design. The idea behind the project was to build an application that held users data based on a users exercise data over the course several months. The main goals of this project were to structure code progression based around Test Driven Design, implement a class based structure, and have functions and methods utilize a Singular Responsibility Principal. 
 
 ## Contributors
 
@@ -10,20 +10,25 @@ The Flash Cards project is a solo project for Front End Module 2 students at the
 
 ## Installing / Getting started
 
-To install and view, run the following commands in your terminal:
+Clone down this repo:
 ```
-git clone git@github.com:Aeickelman40/flashcards.git
-```
-cd into the cloned repository
-```
-npm install
-```
-You're in!!! Now to begin playing the game run the following command in the terminal
-```
-node index.js
+git clone git@github.com:Aeickelman40/fitlit.git
 ```
 
+In the terminal:
+```
+cd fitlit
 
+open src/index.html
+```
+
+View the application in your browser!
+
+Try refreshing, a random new user will display on load.
+
+Select a date in the input, and click the 'Search stats by Date' button and view the users data from that day!
+
+## In action!
 
 ![FitLit](https://user-images.githubusercontent.com/57731927/82506769-eb930a00-9abd-11ea-93eb-d35ed151ed82.gif)
 
