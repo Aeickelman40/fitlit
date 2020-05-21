@@ -4,7 +4,6 @@ html {
 
 body {
     display: flex;
-    height: 100%;
     justify-content: flex-start;
     margin: 0px;
 }
@@ -34,23 +33,22 @@ body {
     justify-content: flex-start;
 }
 
-
-.date-input
- {
-    height: 40px;
+.date-input,
+.date-input-button {
     margin: 12px;
     border-radius: 7px;
 }
 
+.date-input {
+    height: 40px;
+}
+
 .date-input-button {
-    border-radius: 7px;
     height: 45px;
-    margin: 12px;
     width: 100px;
     border: 3px solid black;
     cursor: pointer;
-    padding: 3px;
-    
+    padding: 3px;  
 }
 
 .today-display,
@@ -60,20 +58,21 @@ body {
 }
 
 .display {
+ margin: 20px;
+}
+
+.display, 
+.info-card, 
+.compare-steps, 
+.friends {
     padding: 8px;
-    margin: 20px;
     background-color: #e0fbfc;
     border: 3px solid #ee6c4d;
     border-radius: 7px;
     box-shadow: 5px 7px 7px 0px rgba(0,0,0,0.75);
 }
 
-.hide {
-    display: none;
-}
-
 .welcome-message {
-    
     width: 100%;
     text-align: center;
     margin-top: 20px;
@@ -81,14 +80,11 @@ body {
     margin-bottom: 0px;
 }
 
-.info-card {
-    padding: 8px;
+.info-card, 
+.compare-steps, 
+.friends {
     margin: auto;
     width: 80%;
-    background-color: #e0fbfc;
-    border: 3px solid #ee6c4d;
-    border-radius: 7px;
-    box-shadow: 5px 7px 7px 0px rgba(0,0,0,0.75);
 }
 
 .app-name {
@@ -102,25 +98,4 @@ body {
     color: #ee6c4d;
 }
 
-.compare-steps {
-    padding: 8px;
-    margin: auto;
-    margin-top: 20px;
-    width: 80%;
-    background-color: #e0fbfc;
-    border: 3px solid #ee6c4d;
-    border-radius: 7px;
-    box-shadow: 5px 7px 7px 0px rgba(0,0,0,0.75);
-}
-
-.friends {
-    padding: 8px;
-    margin: auto;
-    margin-top: 20px;
-    width: 80%;
-    background-color: #e0fbfc;
-    border: 3px solid #ee6c4d;
-    border-radius: 7px;
-    box-shadow: 5px 7px 7px 0px rgba(0,0,0,0.75);
-}
 

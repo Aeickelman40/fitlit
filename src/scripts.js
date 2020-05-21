@@ -20,20 +20,18 @@ const weeklyMinutesActiveDisplay = document.querySelector('.weekly-minutes-activ
 const weeklyStepCountDisplay = document.querySelector('.weekly-step-count');
 const welcomeMessage = document.querySelector('.welcome-message');
 
-
-
 let activity = new Activity(activityData);
-let date = "2019/09/22";
 let hydration = new Hydration(hydrationData);
 let sleep = new Sleep(sleepData);
-let user = new User()
+let user = new User();
 let userRepo = new UserRepository(userData);
 
-dateInputButton.addEventListener("click", changeDataDisplay)
+let date = "2019/09/22";
 
-window.onload = displayData()
+dateInputButton.addEventListener("click", changeDataDisplay);
 
-// Refactor based on data being displayed (smaller helper functions)
+window.onload = displayData();
+
 function displayData() {
   makeUser();
   displayUserInfo();
@@ -46,6 +44,25 @@ function displayData() {
   displayDailySleep();
   displayWeeklySleep();
   displayAverageSleep();
+  displayBadSleeper();
+  displayNumStepsOnDay();
+  displayNumMinutesActiveOnDay();
+  displayNumMilesOnDay();
+  displayActivityComparedToAllUsers();
+  displayWeeklyActivityCount();
+  displayTopClimber();
+}
+
+function changeDataDisplay() {
+  turnDateToString();
+  displayUserInfo();
+  welcomeMessageOnLoad();
+  populateFriends();
+  compareStepGoals();
+  displayDailyHydration();
+  displayWeeklyHydration();
+  displayDailySleep();
+  displayWeeklySleep();
   displayBadSleeper();
   displayNumStepsOnDay();
   displayNumMinutesActiveOnDay();
@@ -235,22 +252,5 @@ function turnDateToString() {
 
 }
 
-function changeDataDisplay() {
-  turnDateToString();
-  displayUserInfo();
-  welcomeMessageOnLoad();
-  populateFriends();
-  compareStepGoals();
-  displayDailyHydration();
-  displayWeeklyHydration();
-  displayDailySleep();
-  displayWeeklySleep();
-  displayBadSleeper();
-  displayNumStepsOnDay();
-  displayNumMinutesActiveOnDay();
-  displayNumMilesOnDay();
-  displayActivityComparedToAllUsers();
-  displayWeeklyActivityCount();
-  displayTopClimber();
-}
+
 
