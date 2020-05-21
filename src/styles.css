@@ -83,7 +83,7 @@ body {
 .info-card, 
 .compare-steps, 
 .friends {
-    margin: auto;
+    margin: 18px;
     width: 80%;
 }
 
